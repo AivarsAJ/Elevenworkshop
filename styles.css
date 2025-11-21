@@ -208,6 +208,21 @@ body {
     background-clip: text;
 }
 
+.hero-eleven {
+    display: inline-block;
+    transform: translateY(20px);
+}
+
+@media (min-width: 769px) {
+    .hero-eleven {
+        transform: translateY(45px);
+    }
+}
+
+.hero-workshop {
+    display: inline-block;
+}
+
 .hero-subtitle {
     display: flex;
     align-items: center;
@@ -229,6 +244,12 @@ body {
     font-weight: 700;
     font-size: 32px;
     line-height: 1.2;
+}
+
+@media (min-width: 769px) {
+    .release-date {
+        transform: translateY(-10px);
+    }
 }
 
 .platforms {
@@ -984,19 +1005,23 @@ body {
 }
 
 .features-slide-wrapper {
-    overflow: visible;
+    overflow: hidden;
     width: 100%;
     display: flex;
     align-items: center;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .features-slide-track {
     display: flex;
     gap: 50px;
     align-items: center;
-    justify-content: center;
-    width: 100%;
+    justify-content: flex-start;
+    width: fit-content;
     flex-wrap: nowrap;
+    animation: slideFeatures 30s linear infinite;
 }
 
 @keyframes slideFeatures {
