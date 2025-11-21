@@ -202,6 +202,7 @@ body {
     margin-bottom: 20px;
     letter-spacing: -2px;
     text-transform: uppercase;
+    color: #ffffff;
     background: linear-gradient(45deg, #ffffff, #cccccc);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -209,19 +210,31 @@ body {
     position: relative;
     overflow: visible;
     min-height: 1em;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
 .hero-eleven {
-    display: inline-block;
+    display: inline-block !important;
     transform: translateY(20px);
     position: relative;
-    z-index: 1;
-    will-change: transform;
+    z-index: 2;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #ffffff;
+    background: linear-gradient(45deg, #ffffff, #cccccc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
 @media (min-width: 769px) {
     .hero-eleven {
         transform: translateY(45px);
+        backface-visibility: hidden;
+        -webkit-font-smoothing: antialiased;
     }
 }
 
@@ -292,7 +305,7 @@ body {
     display: flex;
     gap: 20px;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 35px;
 }
 
 .btn-trailer {
@@ -905,7 +918,21 @@ body {
 
     .platforms {
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .platforms .platform-link {
+        width: 100%;
+        max-width: 300px;
+        display: block;
+    }
+
+    .platforms span {
+        width: 100%;
+        display: block;
+        text-align: center;
+        box-sizing: border-box;
     }
 
     .services-grid {
@@ -933,7 +960,13 @@ body {
             display: inline-block !important;
             visibility: visible !important;
             opacity: 1 !important;
-            color: var(--text-primary);
+            color: var(--text-primary) !important;
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            -webkit-text-fill-color: var(--text-primary) !important;
+            background-clip: unset !important;
+            backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         .hero-workshop {
@@ -1075,11 +1108,11 @@ body {
 }
 
 @keyframes slideFeatures {
-    from {
+    0% {
         transform: translateX(0);
     }
-    to {
-        transform: translateX(-50%);
+    100% {
+        transform: translateX(-33.333%);
     }
 }
 
