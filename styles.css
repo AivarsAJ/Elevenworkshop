@@ -206,11 +206,17 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    position: relative;
+    overflow: visible;
+    min-height: 1em;
 }
 
 .hero-eleven {
     display: inline-block;
     transform: translateY(20px);
+    position: relative;
+    z-index: 1;
+    will-change: transform;
 }
 
 @media (min-width: 769px) {
@@ -894,6 +900,30 @@ body {
     }
 
     @media (max-width: 768px) {
+        .hero-content {
+            overflow: visible;
+        }
+
+        .hero-title {
+            overflow: visible;
+            min-height: auto;
+            color: var(--text-primary);
+        }
+
+        .hero-eleven {
+            transform: translateY(15px);
+            display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            color: var(--text-primary);
+        }
+
+        .hero-workshop {
+            display: inline-block !important;
+            visibility: visible !important;
+            color: var(--text-primary);
+        }
+
         .services-grid {
             grid-template-columns: 1fr !important;
             gap: 30px;

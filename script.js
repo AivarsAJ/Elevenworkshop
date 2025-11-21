@@ -246,6 +246,7 @@ const jasonImage = document.getElementById('jason-image');
 if (jasonImage) {
     const characterImageContainer = jasonImage.closest('.character-image');
     let imageChanged = false;
+    const isMobile = window.innerWidth <= 768;
     
     // Function to check if image is in viewport (mobile-friendly)
     const isInViewport = (element) => {
@@ -262,34 +263,47 @@ if (jasonImage) {
         );
     };
     
+    // Function to trigger image transition
+    const triggerTransition = () => {
+        if (imageChanged) return;
+        imageChanged = true;
+        
+        // Add transitioning class for border glow effect to container
+        characterImageContainer.classList.add('transitioning');
+        
+        // Fade out current image with scale effect
+        jasonImage.classList.add('fade-out');
+        
+        // After fade out completes, change image and fade in
+        setTimeout(() => {
+            jasonImage.src = 'PEC.jpg';
+            jasonImage.alt = 'After';
+            
+            // Remove fade-out, add fade-in for smooth transition
+            jasonImage.classList.remove('fade-out');
+            jasonImage.classList.add('fade-in');
+            
+            // Remove transitioning class after animation
+            setTimeout(() => {
+                characterImageContainer.classList.remove('transitioning');
+            }, 700);
+        }, 530);
+    };
+    
     // Check visibility and start transition
     const checkAndTransition = () => {
         if (!imageChanged && jasonImage && characterImageContainer && isInViewport(jasonImage.closest('.character-section'))) {
-            imageChanged = true;
-            
-            // Wait 2 seconds after section is visible, then transition (1.5x faster)
-            setTimeout(() => {
-                // Add transitioning class for border glow effect to container
-                characterImageContainer.classList.add('transitioning');
-                
-                // Fade out current image with scale effect
-                jasonImage.classList.add('fade-out');
-                
-                // After fade out completes, change image and fade in
-                setTimeout(() => {
-                    jasonImage.src = 'PEC.jpg';
-                    jasonImage.alt = 'After';
-                    
-                    // Remove fade-out, add fade-in for smooth transition
-                    jasonImage.classList.remove('fade-out');
-                    jasonImage.classList.add('fade-in');
-                    
-                    // Remove transitioning class after animation
-                    setTimeout(() => {
-                        characterImageContainer.classList.remove('transitioning');
-                    }, 700); // Match transition duration (1.5x faster)
-                }, 530); // Match transition duration (1.5x faster)
-            }, 2000); // 1.5x faster: 3000ms / 1.5 = 2000ms
+            if (isMobile) {
+                // On mobile: only trigger when viewed, add touch/click listener
+                if (!characterImageContainer.hasAttribute('data-mobile-listener')) {
+                    characterImageContainer.setAttribute('data-mobile-listener', 'true');
+                    characterImageContainer.addEventListener('touchstart', triggerTransition, { once: true });
+                    characterImageContainer.addEventListener('click', triggerTransition, { once: true });
+                }
+            } else {
+                // On desktop: automatic after 2 seconds
+                setTimeout(triggerTransition, 2000);
+            }
         }
     };
     
@@ -306,6 +320,7 @@ const autokrasosanaImage = document.getElementById('autokrasosana-image');
 if (autokrasosanaImage) {
     const characterImageContainer = autokrasosanaImage.closest('.character-image');
     let imageChanged = false;
+    const isMobile = window.innerWidth <= 768;
     
     // Function to check if image is in viewport (mobile-friendly)
     const isInViewport = (element) => {
@@ -322,34 +337,47 @@ if (autokrasosanaImage) {
         );
     };
     
+    // Function to trigger image transition
+    const triggerTransition = () => {
+        if (imageChanged) return;
+        imageChanged = true;
+        
+        // Add transitioning class for border glow effect to container
+        characterImageContainer.classList.add('transitioning');
+        
+        // Fade out current image with scale effect
+        autokrasosanaImage.classList.add('fade-out');
+        
+        // After fade out completes, change image and fade in
+        setTimeout(() => {
+            autokrasosanaImage.src = 'pec2.jpg';
+            autokrasosanaImage.alt = 'After';
+            
+            // Remove fade-out, add fade-in for smooth transition
+            autokrasosanaImage.classList.remove('fade-out');
+            autokrasosanaImage.classList.add('fade-in');
+            
+            // Remove transitioning class after animation
+            setTimeout(() => {
+                characterImageContainer.classList.remove('transitioning');
+            }, 700);
+        }, 530);
+    };
+    
     // Check visibility and start transition
     const checkAndTransition = () => {
         if (!imageChanged && autokrasosanaImage && characterImageContainer && isInViewport(autokrasosanaImage.closest('.character-section'))) {
-            imageChanged = true;
-            
-            // Wait 2 seconds after section is visible, then transition (1.5x faster)
-            setTimeout(() => {
-                // Add transitioning class for border glow effect to container
-                characterImageContainer.classList.add('transitioning');
-                
-                // Fade out current image with scale effect
-                autokrasosanaImage.classList.add('fade-out');
-                
-                // After fade out completes, change image and fade in
-                setTimeout(() => {
-                    autokrasosanaImage.src = 'pec2.jpg';
-                    autokrasosanaImage.alt = 'After';
-                    
-                    // Remove fade-out, add fade-in for smooth transition
-                    autokrasosanaImage.classList.remove('fade-out');
-                    autokrasosanaImage.classList.add('fade-in');
-                    
-                    // Remove transitioning class after animation
-                    setTimeout(() => {
-                        characterImageContainer.classList.remove('transitioning');
-                    }, 700); // Match transition duration (1.5x faster)
-                }, 530); // Match transition duration (1.5x faster)
-            }, 2000); // 1.5x faster: 3000ms / 1.5 = 2000ms
+            if (isMobile) {
+                // On mobile: only trigger when viewed, add touch/click listener
+                if (!characterImageContainer.hasAttribute('data-mobile-listener')) {
+                    characterImageContainer.setAttribute('data-mobile-listener', 'true');
+                    characterImageContainer.addEventListener('touchstart', triggerTransition, { once: true });
+                    characterImageContainer.addEventListener('click', triggerTransition, { once: true });
+                }
+            } else {
+                // On desktop: automatic after 2 seconds
+                setTimeout(triggerTransition, 2000);
+            }
         }
     };
     
