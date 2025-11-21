@@ -119,6 +119,107 @@ window.addEventListener('scroll', () => {
     }
 });
 
+// YouTube Videos Slider for Mobile
+const youtubeSliderTrack = document.getElementById('youtube-slider-track');
+const youtubeDots = document.querySelectorAll('.youtube-dots .dot');
+
+if (youtubeSliderTrack && youtubeDots.length > 0) {
+    let currentSlide = 0;
+    let isDragging = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const totalSlides = youtubeDots.length;
+
+    // Update slider position
+    const updateSlider = () => {
+        const translateX = -currentSlide * 100;
+        youtubeSliderTrack.style.transform = `translateX(${translateX}%)`;
+        
+        // Update dots
+        youtubeDots.forEach((dot, index) => {
+            if (index === currentSlide) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    };
+
+    // Dot navigation
+    youtubeDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentSlide = index;
+            updateSlider();
+        });
+    });
+
+    // Touch events for mobile swipe
+    youtubeSliderTrack.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        isDragging = true;
+    }, { passive: true });
+
+    youtubeSliderTrack.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        touchEndX = e.touches[0].clientX;
+    }, { passive: false });
+
+    youtubeSliderTrack.addEventListener('touchend', () => {
+        if (!isDragging) return;
+        isDragging = false;
+
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0 && currentSlide < totalSlides - 1) {
+                // Swipe left - next slide
+                currentSlide++;
+            } else if (diff < 0 && currentSlide > 0) {
+                // Swipe right - previous slide
+                currentSlide--;
+            }
+            updateSlider();
+        }
+    });
+
+    // Mouse drag for desktop (optional)
+    youtubeSliderTrack.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.pageX - youtubeSliderTrack.offsetLeft;
+        scrollLeft = currentSlide;
+        youtubeSliderTrack.style.cursor = 'grabbing';
+    });
+
+    youtubeSliderTrack.addEventListener('mouseleave', () => {
+        isDragging = false;
+        youtubeSliderTrack.style.cursor = 'grab';
+    });
+
+    youtubeSliderTrack.addEventListener('mouseup', () => {
+        isDragging = false;
+        youtubeSliderTrack.style.cursor = 'grab';
+    });
+
+    youtubeSliderTrack.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - youtubeSliderTrack.offsetLeft;
+        const walk = (x - startX) * 2;
+        // Only apply mouse drag if on desktop (not touch device)
+        if (window.innerWidth > 768) {
+            // Desktop mouse drag can be implemented here if needed
+        }
+    });
+
+    // Initialize
+    updateSlider();
+}
+
 // Character image hover effects
 document.querySelectorAll('.character-image').forEach(image => {
     image.addEventListener('mouseenter', function() {
@@ -146,14 +247,18 @@ if (jasonImage) {
     const characterImageContainer = jasonImage.closest('.character-image');
     let imageChanged = false;
     
-    // Function to check if image is in viewport
+    // Function to check if image is in viewport (mobile-friendly)
     const isInViewport = (element) => {
+        if (!element) return false;
         const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+        // Check if element is at least partially visible in viewport
         return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            rect.top < windowHeight &&
+            rect.bottom > 0 &&
+            rect.left < windowWidth &&
+            rect.right > 0
         );
     };
     
@@ -202,14 +307,18 @@ if (autokrasosanaImage) {
     const characterImageContainer = autokrasosanaImage.closest('.character-image');
     let imageChanged = false;
     
-    // Function to check if image is in viewport
+    // Function to check if image is in viewport (mobile-friendly)
     const isInViewport = (element) => {
+        if (!element) return false;
         const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+        // Check if element is at least partially visible in viewport
         return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            rect.top < windowHeight &&
+            rect.bottom > 0 &&
+            rect.left < windowWidth &&
+            rect.right > 0
         );
     };
     
@@ -252,11 +361,12 @@ if (autokrasosanaImage) {
     checkAndTransition();
 }
 
-// Custom Cursor
+// Custom Cursor - Only on desktop (not mobile)
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
 const cursor = document.querySelector('.custom-cursor');
 const cursorDot = document.querySelector('.custom-cursor-dot');
 
-if (cursor && cursorDot) {
+if (cursor && cursorDot && !isMobile) {
     let mouseX = 0;
     let mouseY = 0;
     let cursorX = 0;
@@ -301,5 +411,10 @@ if (cursor && cursorDot) {
             cursorDot.classList.remove('hover');
         });
     });
+} else if (cursor && cursorDot) {
+    // Hide cursor elements on mobile
+    cursor.style.display = 'none';
+    cursorDot.style.display = 'none';
+    document.body.style.cursor = 'auto';
 }
 

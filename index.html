@@ -203,7 +203,8 @@
                 <h2 class="section-title">MŪSU NESENIE VIDEO</h2>
             </div>
             <div class="youtube-grid">
-                <div class="youtube-card">
+                <!-- Desktop: Direct cards in grid -->
+                <div class="youtube-card youtube-card-desktop">
                     <div class="youtube-embed youtube-image">
                         <img src="video1.jpg" alt="Video 1" class="video-thumbnail">
                         <div class="play-button-overlay">
@@ -212,7 +213,7 @@
                     </div>
                     <h3 class="youtube-title">Video 1</h3>
                 </div>
-                <div class="youtube-card">
+                <div class="youtube-card youtube-card-desktop">
                     <div class="youtube-embed youtube-image">
                         <img src="video2.jpg" alt="Video 2" class="video-thumbnail">
                         <div class="play-button-overlay">
@@ -221,7 +222,7 @@
                     </div>
                     <h3 class="youtube-title">Video 2</h3>
                 </div>
-                <div class="youtube-card">
+                <div class="youtube-card youtube-card-desktop">
                     <div class="youtube-embed youtube-image">
                         <img src="video3.jpg" alt="Video 3" class="video-thumbnail">
                         <div class="play-button-overlay">
@@ -229,6 +230,43 @@
                         </div>
                     </div>
                     <h3 class="youtube-title">Video 3</h3>
+                </div>
+            </div>
+            <!-- Mobile: Slider -->
+            <div class="youtube-slider-wrapper">
+                <div class="youtube-slider-track" id="youtube-slider-track">
+                    <div class="youtube-card">
+                        <div class="youtube-embed youtube-image">
+                            <img src="video1.jpg" alt="Video 1" class="video-thumbnail">
+                            <div class="play-button-overlay">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <h3 class="youtube-title">Video 1</h3>
+                    </div>
+                    <div class="youtube-card">
+                        <div class="youtube-embed youtube-image">
+                            <img src="video2.jpg" alt="Video 2" class="video-thumbnail">
+                            <div class="play-button-overlay">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <h3 class="youtube-title">Video 2</h3>
+                    </div>
+                    <div class="youtube-card">
+                        <div class="youtube-embed youtube-image">
+                            <img src="video3.jpg" alt="Video 3" class="video-thumbnail">
+                            <div class="play-button-overlay">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <h3 class="youtube-title">Video 3</h3>
+                    </div>
+                </div>
+                <div class="youtube-dots" id="youtube-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <span class="dot" data-index="2"></span>
                 </div>
             </div>
         </div>
@@ -328,6 +366,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 

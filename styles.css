@@ -22,6 +22,17 @@ body {
     cursor: none; /* Hide default cursor */
 }
 
+@media (max-width: 768px) {
+    body {
+        cursor: auto; /* Show default cursor on mobile */
+    }
+    
+    .custom-cursor,
+    .custom-cursor-dot {
+        display: none !important;
+    }
+}
+
 /* Custom Cursor */
 .custom-cursor {
     position: fixed;
@@ -1191,6 +1202,52 @@ body {
     max-width: 1400px;
     width: 100%;
     margin: 0 auto;
+    position: relative;
+}
+
+.youtube-card-desktop {
+    display: block;
+}
+
+.youtube-slider-wrapper {
+    display: none;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+}
+
+.youtube-slider-track {
+    display: flex;
+    transition: transform 0.3s ease;
+    gap: 40px;
+}
+
+.youtube-slider-track .youtube-card {
+    min-width: 100%;
+    flex-shrink: 0;
+}
+
+.youtube-dots {
+    display: none;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.youtube-dots .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.youtube-dots .dot.active {
+    background-color: var(--accent);
+    width: 30px;
+    border-radius: 6px;
 }
 
 .youtube-card {
@@ -1282,6 +1339,28 @@ body {
 @media (max-width: 768px) {
     .play-button-overlay {
         display: none;
+    }
+
+    .intro-section {
+        display: none !important;
+    }
+
+    .youtube-grid {
+        display: none !important;
+    }
+
+    .youtube-slider-wrapper {
+        display: block;
+    }
+
+    .youtube-slider-track .youtube-card {
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .youtube-dots {
+        display: flex;
     }
 }
 
