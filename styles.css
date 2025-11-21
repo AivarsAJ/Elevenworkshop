@@ -282,6 +282,12 @@ body {
     transform: translateY(-2px);
 }
 
+.platforms .platform-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
 .hero-buttons {
     display: flex;
     gap: 20px;
@@ -680,6 +686,18 @@ body {
 .footer {
     background-color: var(--bg-darker);
     padding: 80px 20px 40px;
+    opacity: 1;
+}
+
+.footer-creator {
+    text-align: center;
+}
+
+.btn-call-aivars:hover {
+    background-color: var(--accent-hover) !important;
+    border-color: var(--accent-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 0, 0.4);
 }
 
 .footer-title {
@@ -1026,12 +1044,13 @@ body {
     background-color: var(--bg-darker);
     padding: 30px 0;
     margin: 0;
-    overflow: hidden;
+    overflow: visible;
     border-top: 2px solid rgba(255, 107, 0, 0.2);
     border-bottom: 2px solid rgba(255, 107, 0, 0.2);
     display: flex;
     align-items: center;
     min-height: 100px;
+    position: relative;
 }
 
 .features-slide-wrapper {
@@ -1052,13 +1071,14 @@ body {
     width: fit-content;
     flex-wrap: nowrap;
     animation: slideFeatures 30s linear infinite;
+    will-change: transform;
 }
 
 @keyframes slideFeatures {
-    0% {
+    from {
         transform: translateX(0);
     }
-    100% {
+    to {
         transform: translateX(-50%);
     }
 }
@@ -1285,17 +1305,27 @@ body {
     width: 100%;
     max-width: 100%;
     position: relative;
+    margin: 0;
+    padding: 0;
 }
 
 .youtube-slider-track {
     display: flex;
     transition: transform 0.3s ease;
     gap: 40px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .youtube-slider-track .youtube-card {
     min-width: 100%;
+    width: 100%;
+    max-width: 100%;
     flex-shrink: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 .youtube-dots {
@@ -1406,6 +1436,43 @@ body {
     box-shadow: 0 10px 30px rgba(255, 107, 0, 0.5);
 }
 
+/* Under Construction Page */
+.construction-icon {
+    animation: rotateTools 3s ease-in-out infinite;
+}
+
+@keyframes rotateTools {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-10deg);
+    }
+    75% {
+        transform: rotate(10deg);
+    }
+}
+
+.construction-text {
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.construction-info a:hover {
+    color: var(--accent);
+    transition: color 0.3s ease;
+}
+
 @media (max-width: 768px) {
     .play-button-overlay {
         display: none;
@@ -1419,14 +1486,58 @@ body {
         display: none !important;
     }
 
+    .youtube-section .container {
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .youtube-header {
+        padding: 0 20px;
+    }
+
     .youtube-slider-wrapper {
         display: block;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        width: 100%;
+        max-width: 100%;
+        position: relative;
+        clip-path: inset(0);
+    }
+
+    .youtube-slider-track {
+        gap: 0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        width: 100%;
+    }
+
+    .youtube-slider-track > a {
+        display: block;
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        position: relative;
     }
 
     .youtube-slider-track .youtube-card {
         display: block;
         width: 100%;
-        margin: 0 auto;
+        max-width: 100%;
+        min-width: 100%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        flex-shrink: 0;
+        position: relative;
     }
 
     .youtube-dots {
@@ -1443,6 +1554,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px;
     margin: 0;
+    white-space: nowrap;
 }
 
 /* Smooth Scrolling */

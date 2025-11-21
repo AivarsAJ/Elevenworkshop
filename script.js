@@ -79,12 +79,28 @@ document.querySelectorAll('.character-section, .intro-section, .location-section
     observer.observe(section);
 });
 
-// Trailer button functionality
+// Trailer button functionality - redirect to under construction page
 document.querySelectorAll('.btn-trailer').forEach(button => {
-    button.addEventListener('click', function() {
-        // In a real implementation, this would open a video modal
-        alert('Trailer would play here. In a real implementation, this would open a video player.');
-    });
+    // Only add redirect if button is not already a link
+    if (button.tagName !== 'A') {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'under-construction.html';
+        });
+    }
+});
+
+// Video cards click functionality - redirect to under construction page
+document.querySelectorAll('.youtube-image, .youtube-card').forEach(card => {
+    if (!card.closest('a')) {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', function(e) {
+            // Only redirect if not already wrapped in a link
+            if (!e.target.closest('a')) {
+                window.location.href = 'under-construction.html';
+            }
+        });
+    }
 });
 
 // Wishlist button functionality
@@ -137,6 +153,7 @@ if (youtubeSliderTrack && youtubeDots.length > 0) {
     const updateSlider = () => {
         const translateX = -currentSlide * 100;
         youtubeSliderTrack.style.transform = `translateX(${translateX}%)`;
+        youtubeSliderTrack.style.transition = 'transform 0.3s ease';
         
         // Update dots
         youtubeDots.forEach((dot, index) => {
