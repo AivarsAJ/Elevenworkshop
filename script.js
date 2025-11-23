@@ -249,6 +249,55 @@ document.querySelectorAll('.character-image').forEach(image => {
     });
 });
 
+// Loading Screen - Hide when all images are loaded
+const loadingScreen = document.getElementById('loading-screen');
+
+if (loadingScreen) {
+    const images = document.querySelectorAll('img');
+    let imagesLoaded = 0;
+    const totalImages = images.length;
+    
+    // If no images, hide immediately
+    if (totalImages === 0) {
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+        }, 500);
+    } else {
+        // Check each image
+        images.forEach((img) => {
+            if (img.complete) {
+                imagesLoaded++;
+                checkAllLoaded();
+            } else {
+                img.addEventListener('load', () => {
+                    imagesLoaded++;
+                    checkAllLoaded();
+                });
+                img.addEventListener('error', () => {
+                    imagesLoaded++;
+                    checkAllLoaded();
+                });
+            }
+        });
+    }
+    
+    function checkAllLoaded() {
+        if (imagesLoaded >= totalImages) {
+            // Small delay for smooth transition
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+            }, 300);
+        }
+    }
+    
+    // Fallback: hide after max 5 seconds even if images haven't loaded
+    setTimeout(() => {
+        if (!loadingScreen.classList.contains('hidden')) {
+            loadingScreen.classList.add('hidden');
+        }
+    }, 5000);
+}
+
 // Add loading animation
 window.addEventListener('load', () => {
     document.body.style.opacity = '0';
@@ -258,105 +307,24 @@ window.addEventListener('load', () => {
     }, 100);
 });
 
-// Jason Duval image switching - PIRMS to PEC with cool transition
+// Jason Duval image switching - PEC.jpg is now shown by default on page load
+// Image switching is disabled since the after image is shown initially
 const jasonImage = document.getElementById('jason-image');
 if (jasonImage) {
-    const characterImageContainer = jasonImage.closest('.character-image');
-    let imageChanged = false;
-    const isMobile = window.innerWidth <= 768;
-    
-    // Function to check if image is in viewport (mobile-friendly)
-    const isInViewport = (element) => {
-        if (!element) return false;
-        const rect = element.getBoundingClientRect();
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-        const windowWidth = window.innerWidth || document.documentElement.clientWidth;
-        // Check if element is at least partially visible in viewport
-        return (
-            rect.top < windowHeight &&
-            rect.bottom > 0 &&
-            rect.left < windowWidth &&
-            rect.right > 0
-        );
-    };
-    
-    // Function to trigger image transition
-    const triggerTransition = () => {
-        if (imageChanged) return;
-        imageChanged = true;
-        
-        // Add transitioning class for border glow effect to container
-        characterImageContainer.classList.add('transitioning');
-        
-        // Fade out current image with scale effect
-        jasonImage.classList.add('fade-out');
-        
-        // After fade out completes, change image and fade in
-        setTimeout(() => {
-            jasonImage.src = 'PEC.jpg';
-            jasonImage.alt = 'After';
-            
-            // Remove fade-out, add fade-in for smooth transition
-            jasonImage.classList.remove('fade-out');
-            jasonImage.classList.add('fade-in');
-            
-            // Remove transitioning class after animation
-            setTimeout(() => {
-                characterImageContainer.classList.remove('transitioning');
-            }, 700);
-        }, 530);
-    };
-    
-    // Check visibility and start transition
-    const checkAndTransition = () => {
-        if (!imageChanged && jasonImage && characterImageContainer && isInViewport(jasonImage.closest('.character-section'))) {
-            if (isMobile) {
-                // On mobile: only trigger when viewed, add touch/click listener
-                if (!characterImageContainer.hasAttribute('data-mobile-listener')) {
-                    characterImageContainer.setAttribute('data-mobile-listener', 'true');
-                    characterImageContainer.addEventListener('touchstart', triggerTransition, { once: true });
-                    characterImageContainer.addEventListener('click', triggerTransition, { once: true });
-                }
-            } else {
-                // On desktop: automatic after 2 seconds
-                setTimeout(triggerTransition, 2000);
-            }
-        }
-    };
-    
-    // Check on scroll and on load
-    window.addEventListener('scroll', checkAndTransition);
-    window.addEventListener('load', checkAndTransition);
-    
-    // Initial check
-    checkAndTransition();
+    // Image is already showing PEC.jpg (after image) on page load
+    // No transition needed since the final result is displayed immediately
 }
 
 // AUTO KRĀSOŠANA image switching - pirms2 to pec2 with cool transition
 const autokrasosanaImage = document.getElementById('autokrasosana-image');
 if (autokrasosanaImage) {
     const characterImageContainer = autokrasosanaImage.closest('.character-image');
+    const characterSection = autokrasosanaImage.closest('.character-section');
     let imageChanged = false;
-    const isMobile = window.innerWidth <= 768;
-    
-    // Function to check if image is in viewport (mobile-friendly)
-    const isInViewport = (element) => {
-        if (!element) return false;
-        const rect = element.getBoundingClientRect();
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-        const windowWidth = window.innerWidth || document.documentElement.clientWidth;
-        // Check if element is at least partially visible in viewport
-        return (
-            rect.top < windowHeight &&
-            rect.bottom > 0 &&
-            rect.left < windowWidth &&
-            rect.right > 0
-        );
-    };
     
     // Function to trigger image transition
     const triggerTransition = () => {
-        if (imageChanged) return;
+        if (imageChanged || !characterImageContainer) return;
         imageChanged = true;
         
         // Add transitioning class for border glow effect to container
@@ -381,29 +349,23 @@ if (autokrasosanaImage) {
         }, 530);
     };
     
-    // Check visibility and start transition
-    const checkAndTransition = () => {
-        if (!imageChanged && autokrasosanaImage && characterImageContainer && isInViewport(autokrasosanaImage.closest('.character-section'))) {
-            if (isMobile) {
-                // On mobile: only trigger when viewed, add touch/click listener
-                if (!characterImageContainer.hasAttribute('data-mobile-listener')) {
-                    characterImageContainer.setAttribute('data-mobile-listener', 'true');
-                    characterImageContainer.addEventListener('touchstart', triggerTransition, { once: true });
-                    characterImageContainer.addEventListener('click', triggerTransition, { once: true });
+    // Use Intersection Observer to trigger when section is viewed
+    if (characterSection) {
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !imageChanged) {
+                    // Trigger transition when section comes into view
+                    setTimeout(triggerTransition, 2500); // Delay to allow viewing first picture
+                    imageObserver.unobserve(entry.target); // Only trigger once
                 }
-            } else {
-                // On desktop: automatic after 2 seconds
-                setTimeout(triggerTransition, 2000);
-            }
-        }
-    };
-    
-    // Check on scroll and on load
-    window.addEventListener('scroll', checkAndTransition);
-    window.addEventListener('load', checkAndTransition);
-    
-    // Initial check
-    checkAndTransition();
+            });
+        }, {
+            threshold: 0.3, // Trigger when 30% of section is visible
+            rootMargin: '0px'
+        });
+        
+        imageObserver.observe(characterSection);
+    }
 }
 
 // Custom Cursor - Only on desktop (not mobile)
