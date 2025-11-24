@@ -1,434 +1,2835 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELEVEN WORKSHOP</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Perfection 86</title>
+  <link rel="icon" type="image/png" href="./headerologpng.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Orbitron:wght@600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Russo+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --lightning-red: #FF0000;
+      --racing-red: #CC0000;
+      --accent: #FF0000;
+      --racing-yellow: #FFFFFF;
+      --racing-white: #FFFFFF;
+      --racing-black: #000000;
+      --racing-gray: #1a1a1a;
+      --white: #FFFFFF;
+      --overlay-dark: rgba(0, 0, 0, 0.5);
+      --overlay-gradient: linear-gradient(180deg, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.8) 85%, rgba(0,0,0,1) 100%);
+      --headline-size: 3.5rem;
+      --subheadline-size: 1.35rem;
+      --button-radius: 999px;
+      --button-padding: 0.9em 2.2em;
+      --transition: 0.25s cubic-bezier(.4,0,.2,1);
+    }
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="tav.png">
-    <link rel="shortcut icon" type="image/png" href="tav.png">
-    <link rel="apple-touch-icon" href="tav.png">
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background: #1a1a1a;
+      color: #fff;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" fill="%23FF0000"/></svg>'), auto;
+    }
     
-    <!-- Open Graph / Social Media Sharing -->
-    <meta property="og:title" content="ELEVEN WORKSHOP">
-    <meta property="og:description" content="Autoserviss, Auto krāsošana, Virsbūves atjaunošana - Liepaja">
-    <meta property="og:image" content="tav.png">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="">
+    * {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" fill="%23FF0000"/></svg>'), auto;
+    }
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ELEVEN WORKSHOP">
-    <meta name="twitter:description" content="Autoserviss, Auto krāsošana, Virsbūves atjaunošana - Liepaja">
-    <meta name="twitter:image" content="tav.png">
+    a, button, .hero-btn, .service-btn, .order-btn, .back-btn, .color-swatch, .detail-image-container, .hero-mobile-menu-btn, .scroll-top {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" fill="%23FF0000"/></svg>'), pointer;
+    }
     
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    body.loading {
+      overflow: hidden;
+    }
+    
+    /* Loading Screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    
+    .loading-logo {
+      width: auto;
+      height: 120px;
+      max-width: 400px;
+      margin-bottom: 50px;
+      filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.5));
+      animation: logoPulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes logoPulse {
+      0%, 100% {
+        filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.5));
+        transform: scale(1);
+      }
+      50% {
+        filter: drop-shadow(0 0 30px rgba(255, 0, 0, 0.8));
+        transform: scale(1.02);
+      }
+    }
+    
+    .loading-progress-container {
+      width: 300px;
+      max-width: 90%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    .loading-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--lightning-red) 0%, #ff3333 50%, var(--lightning-red) 100%);
+      background-size: 200% 100%;
+      border-radius: 999px;
+      width: 0%;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.6), 0 0 40px rgba(255, 0, 0, 0.3);
+      animation: progressShimmer 2s linear infinite;
+    }
+    
+    @keyframes progressShimmer {
+      0% {
+        background-position: 0% center;
+      }
+      100% {
+        background-position: 200% center;
+      }
+    }
+    
+    .loading-percentage {
+      margin-top: 20px;
+      color: #ffffff;
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+    
+    @media (max-width: 768px) {
+      .loading-logo {
+        height: 80px;
+        max-width: 250px;
+        margin-bottom: 40px;
+      }
+      
+      .loading-progress-container {
+        width: 250px;
+      }
+      
+      .loading-percentage {
+        font-size: 1rem;
+      }
+    }
+    
+    /* Hero Header Overlay - Transparent at top */
+    .hero-header-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      z-index: 300;
+      background: rgba(26,26,26,0);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+      height: 72px;
+      pointer-events: auto;
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .hero-header-overlay.visible {
+      background: #1a1a1a;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+    }
+    
+    .hero-header-overlay .hero-header-logo {
+      margin-left: 96px;
+      margin-top: 8px;
+      height: 80px;
+      width: auto;
+      max-width: 300px;
+      display: block;
+      transition: height 0.3s, max-width 0.3s;
+      position: relative;
+      filter: brightness(0) invert(1);
+    }
+    
+    .hero-header-overlay.visible .hero-header-logo {
+      filter: brightness(0) invert(1);
+    }
+    
+    .hero-header-overlay .hero-header-logo-nav {
+      display: none;
+    }
+    
+    .hero-header-nav {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+      margin-right: 16px;
+    }
+    
+    .hero-header-nav a {
+      color: #fff;
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+      font-size: 1.15rem;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 0.3em 0.8em;
+      border-radius: 6px;
+      transition: background 0.18s, color 0.18s;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.32);
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .hero-header-nav a:hover, .hero-header-nav a:focus {
+      background: none;
+      color: #fff;
+      outline: none;
+    }
+    
+    .hero-header-overlay.visible .hero-header-nav a {
+      color: #ffffff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.32);
+    }
+    
+    .hero-header-overlay.visible .hero-header-nav a:hover {
+      color: var(--lightning-red);
+      background: none;
+    }
+    
+    .logo-placeholder {
+      width: 300px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.32);
+    }
+    
+    .logo-placeholder img {
+      width: auto;
+      height: 100%;
+      max-width: 150px;
+      max-height: 40px;
+      display: block;
+      filter: brightness(0) invert(1);
+      transition: filter 0.3s;
+    }
+    
+    .hero-header-overlay.visible .logo-placeholder img {
+      filter: brightness(0) invert(1);
+    }
+    
+    .hero-header-overlay.visible .logo-placeholder {
+      color: #ffffff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.32);
+    }
+    
+    /* Mobile Logo and Menu Button */
+    .hero-mobile-logo {
+      position: absolute;
+      top: 7.5px;
+      left: 18px;
+      z-index: 10;
+      height: 65px;
+      width: auto;
+      max-width: 205px;
+      display: block;
+      filter: brightness(0) invert(1);
+      object-fit: contain;
+    }
+    
+    .hero-mobile-menu-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 10;
+      height: 38px;
+      width: 38px;
+      background: transparent;
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.3s;
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .hero-mobile-menu-btn.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .hero-mobile-menu-btn:active,
+    .hero-mobile-menu-btn.open {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    
+    .hero-mobile-dropdown {
+      display: none;
+      position: absolute;
+      top: 62px;
+      right: 18px;
+      z-index: 20;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(34,34,34,0.13);
+      padding: 0.7rem 0.5rem;
+      min-width: 140px;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .hero-mobile-dropdown.open {
+      display: flex;
+    }
+    
+    .hero-mobile-dropdown a {
+      color: #222;
+      text-decoration: none;
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      padding: 0.4em 0.7em;
+      border-radius: 6px;
+      transition: background 0.18s, color 0.18s;
+      display: block;
+      background: transparent;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .hero-mobile-dropdown a:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    
+    /* Hero Section */
+    .hero {
+      position: relative;
+      width: 100vw;
+      min-height: 100vh;
+      height: 100vh;
+      max-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      overflow-x: hidden;
+    }
+    
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      -webkit-playsinline: true;
+      -moz-playsinline: true;
+      -ms-playsinline: true;
+      playsinline: true;
+      -webkit-playsinline: true;
+    }
+    
+    @media (max-width: 900px) {
+      .hero-video {
+        object-fit: cover;
+        -webkit-playsinline: true;
+        -moz-playsinline: true;
+        -ms-playsinline: true;
+        playsinline: true;
+      }
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--overlay-gradient);
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      margin-top: -150px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
+    }
+    
+    .hero-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .hero-headline {
+      font-family: 'Merriweather', 'Georgia', serif;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      font-size: var(--headline-size);
+      text-align: center;
+      text-shadow: 0 4px 32px rgba(34,34,34,0.32), 0 0 0.5em var(--accent);
+      margin-bottom: 1.1rem;
+      line-height: 1.08;
+    }
+    
+    .hero-headline img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      filter: drop-shadow(0 4px 32px rgba(34,34,34,0.32)) drop-shadow(0 0 0.5em var(--accent));
+      max-height: 480px;
+      width: auto;
+    }
+    
+    .hero-subheadline {
+      font-family: 'Inter', Arial, sans-serif;
+      color: var(--white);
+      font-size: var(--subheadline-size);
+      font-weight: 400;
+      text-align: center;
+      margin-top: 0.5rem;
+      margin-bottom: 2.2rem;
+      letter-spacing: 0.2px;
+      text-shadow: 0 2px 12px rgba(34,34,34,0.22);
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .hero-btn {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: var(--button-radius);
+      padding: var(--button-padding);
+      border: 2px solid var(--accent);
+      outline: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition);
+      box-shadow: 0 2px 16px rgba(34,34,34,0.10);
+      margin-bottom: 0.5rem;
+    }
+    
+    .hero-btn.primary {
+      background: var(--lightning-red);
+      color: #fff;
+      border: 2px solid var(--lightning-red);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-btn.primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.5s;
+    }
+    
+    .hero-btn.primary:hover::before {
+      left: 100%;
+    }
+    
+    .hero-btn.secondary {
+      background: transparent;
+      color: #fff;
+      border: 2px solid var(--racing-white);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+    
+    .hero-btn.primary:hover, .hero-btn.primary:focus {
+      background: var(--racing-red);
+      color: #fff;
+      border: 2px solid var(--racing-white);
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 50px rgba(255, 255, 255, 0.4);
+      transform: scale(1.05);
+    }
+    
+    .hero-btn.secondary:hover, .hero-btn.secondary:focus {
+      background: var(--racing-white);
+      color: var(--racing-black);
+      border: 2px solid var(--racing-white);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+      transform: scale(1.05);
+    }
+    
+    /* Racing Checkered Pattern */
+    .checkered-pattern {
+      background-image: 
+        linear-gradient(45deg, #000 25%, transparent 25%),
+        linear-gradient(-45deg, #000 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #000 75%),
+        linear-gradient(-45deg, transparent 75%, #000 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+      opacity: 0.1;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    
+    /* Projects Showcase Section */
+    .services-section {
+      padding: 0 0 100px 0;
+      background: #1a1a1a;
+      position: relative;
+      overflow: hidden;
+      margin-top: -80px;
+      z-index: 100;
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .service-card {
+      background: linear-gradient(135deg, #242424 0%, #1a1a1a 100%);
+      border-radius: 25px;
+      overflow: visible;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 255, 255, 0.3);
+      border: 2px solid #ffffff;
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 1;
+      transform: translateY(0);
+      cursor: pointer;
+    }
+    
+    .card-badge {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--lightning-red) 0%, #cc0000 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(255, 255, 255, 0.1);
+      border: 2px solid #ffffff;
+      overflow: hidden;
+      top: -20px;
+      left: -20px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .card-badge img {
+      border-radius: 50%;
+    }
+    
+    .card-badge img {
+      width: 45px;
+      height: auto;
+      filter: brightness(0) invert(1);
+    }
+    
+    .service-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 16px 48px rgba(255, 255, 255, 0.4), 0 0 0 3px rgba(255, 255, 255, 0.5);
+      border-color: #ffffff;
+    }
+    
+    .service-card:hover .card-badge {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 6px 25px rgba(255, 0, 0, 0.7), 0 0 0 3px rgba(255, 255, 255, 0.2);
+    }
+    
+    .service-image {
+      height: 350px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, #1a1a1a 0%, #242424 100%);
+      border-radius: 23px 23px 0 0;
+    }
+    
+    .service-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    
+    .service-card:hover .service-image img {
+      transform: scale(1.05);
+    }
+    
+    /* Image Slider Styles */
+    .image-slider {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .slider-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .image-slider .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+      object-fit: cover;
+    }
+    
+    .image-slider .slide.active {
+      opacity: 1;
+      z-index: 1;
+    }
+    
+    .service-card:hover .image-slider .slide.active {
+      transform: scale(1.05);
+    }
+    
+    .slider-dots {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    
+    .slider-dots .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .slider-dots .dot.active {
+      background: var(--lightning-red);
+      border-color: var(--lightning-red);
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+    }
+    
+    .slider-dots .dot:hover {
+      background: var(--lightning-red);
+      border-color: var(--lightning-red);
+      transform: scale(1.2);
+    }
+    
+    .service-content {
+      padding: 32px;
+      text-align: left;
+      position: relative;
+      z-index: 2;
+      border-radius: 0 0 23px 23px;
+      background: linear-gradient(135deg, #242424 0%, #1a1a1a 100%);
+    }
+    
+    .service-content h3 {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      line-height: 1.3;
+    }
+    
+    .service-content p {
+      font-size: 1rem;
+      color: #cccccc;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+    
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .project-tag {
+      padding: 6px 14px;
+      background: rgba(255, 0, 0, 0.15);
+      border: 1px solid rgba(255, 0, 0, 0.4);
+      border-radius: 20px;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+    }
+    
+    .project-tag:hover {
+      background: rgba(255, 0, 0, 0.25);
+      border-color: var(--lightning-red);
+      box-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
+      transform: translateY(-2px);
+    }
+    
+    .service-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: transparent;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 2px solid var(--lightning-red);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 0.9rem;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .service-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .service-btn:hover {
+      background: var(--lightning-red);
+      color: #ffffff;
+      transform: translateX(5px);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+    }
+    
+    .service-btn:hover::before {
+      left: 100%;
+    }
+    
+    /* Services Offered Section */
+    .services-offered-section {
+      padding: 0 0 30px 0;
+      margin-top: -20px;
+      background: #1a1a1a;
+      position: relative;
+      overflow: hidden;
+      z-index: 400;
+    }
+    
+    .services-offered-section::before {
+      display: none;
+    }
+    
+    .services-offered-section .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .services-section-title {
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      text-align: center;
+      background: #1a1a1a;
+      color: #ffffff;
+      margin-bottom: 4rem;
+      margin-top: -15px;
+      letter-spacing: 10px;
+      text-transform: uppercase;
+      position: relative;
+      display: block;
+      width: 100vw;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-left: 0;
+      margin-right: 0;
+      padding: 32px 0 16px 0;
+      border-radius: 0;
+      border-top: none;
+      border-bottom: none;
+      border-left: none;
+      border-right: none;
+      box-sizing: border-box;
+      z-index: 450;
+      box-shadow: none;
+    }
+    
+     .services-offered-grid {
+       display: grid;
+       grid-template-columns: repeat(3, 1fr);
+       gap: 40px;
+       max-width: 1400px;
+       margin: 0 auto;
+     }
+    
+    .service-offered-card {
+      background: linear-gradient(135deg, #242424 0%, #1a1a1a 100%);
+      border-radius: 20px;
+      padding: 40px 35px;
+      border: 2px solid #ffffff;
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+    
+    .service-offered-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 0, 0, 0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    
+    .service-offered-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 16px 48px rgba(255, 255, 255, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.5);
+      border-color: #ffffff;
+    }
+    
+    .service-offered-card:hover::before {
+      opacity: 1;
+    }
+    
+    .service-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 25px;
+      position: relative;
+      transition: all 0.4s ease;
+      filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.6));
+    }
+    
+    .service-icon-img {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 25px;
+      display: block;
+      object-fit: contain;
+      transition: all 0.4s ease;
+      filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.6));
+    }
+    
+    .service-icon-img.motors {
+      width: 240px;
+      height: 240px;
+      margin-bottom: -35px;
+      margin-top: -20px;
+    }
+    
+    .service-icon-img.riepa {
+      width: 240px;
+      height: 240px;
+      margin-bottom: -20px;
+    }
+    
+    .service-offered-card:has(.service-icon-img.riepa) h3 {
+      margin-top: -15px;
+    }
+    
+    .service-icon-img.details {
+      width: 240px;
+      height: 240px;
+      margin-bottom: -20px;
+    }
+    
+    .service-offered-card:has(.service-icon-img.details) h3 {
+      margin-top: -15px;
+    }
+    
+    .service-offered-card:has(.service-icon-img[src="./res3.png"]) {
+      padding-top: 80px;
+    }
+    
+    .service-offered-card:has(.service-icon-img.motors) {
+      padding-top: 20px;
+    }
+    
+    .service-offered-card:has(.service-icon-img.motors) h3 {
+      margin-top: -30px;
+    }
+    
+    .service-icon::before,
+    .service-icon::after {
+      content: '';
+      position: absolute;
+    }
+    
+    /* Towing Truck Icon - Truck with Trailer */
+    .service-icon.towing {
+      border: none;
+      background: transparent;
+    }
+    
+    .service-icon.towing::before {
+      /* Truck cab */
+      width: 22px;
+      height: 18px;
+      background: var(--lightning-red);
+      border: 2px solid var(--lightning-red);
+      top: 20px;
+      left: 10px;
+      border-radius: 3px 2px 2px 3px;
+      box-shadow: 
+        /* Front truck wheel */
+        0 20px 0 -1px var(--lightning-red),
+        /* Back truck wheel */
+        16px 20px 0 -1px var(--lightning-red),
+        /* Tow hitch */
+        20px 9px 0 0 var(--lightning-red);
+    }
+    
+    .service-icon.towing::after {
+      /* Trailer flatbed */
+      width: 30px;
+      height: 14px;
+      background: var(--lightning-red);
+      border: 2px solid var(--lightning-red);
+      top: 21px;
+      left: 36px;
+      border-radius: 2px;
+      box-shadow: 
+        /* Front trailer wheel */
+        4px 19px 0 -1px var(--lightning-red),
+        /* Back trailer wheel */
+        22px 19px 0 -1px var(--lightning-red);
+    }
+    
+    /* Paint Brush Icon - Simple vertical line with rounded top */
+    .service-icon.paint {
+      border: none;
+      background: transparent;
+    }
+    
+    .service-icon.paint::before {
+      width: 4px;
+      height: 45px;
+      background: var(--lightning-red);
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+    
+    .service-icon.paint::after {
+      width: 32px;
+      height: 12px;
+      background: var(--lightning-red);
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 0 0 50% 50%;
+    }
+    
+    /* Gear/Engine Icon - Circle with plus cross */
+    .service-icon.engine {
+      border: 3px solid var(--lightning-red);
+      border-radius: 50%;
+      background: transparent;
+    }
+    
+    .service-icon.engine::before {
+      width: 48px;
+      height: 5px;
+      background: var(--lightning-red);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 2px;
+    }
+    
+    .service-icon.engine::after {
+      width: 5px;
+      height: 48px;
+      background: var(--lightning-red);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 2px;
+    }
+    
+    .service-offered-card:hover .service-icon {
+      transform: scale(1.15);
+      filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.9));
+    }
+    
+    .service-offered-card:hover .service-icon-img {
+      transform: scale(1.15);
+      filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.9));
+    }
+    
+    .service-offered-card:hover .service-icon.engine {
+      animation: gear-rotate 2s linear infinite;
+    }
+    
+    @keyframes gear-rotate {
+      from { transform: scale(1.15) rotate(0deg); }
+      to { transform: scale(1.15) rotate(360deg); }
+    }
+    
+    .service-offered-card h3 {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      line-height: 1.3;
+      text-align: center;
+    }
+    
+    .service-offered-card p {
+      font-size: 1rem;
+      color: #cccccc;
+      line-height: 1.8;
+      text-align: center;
+      font-weight: 400;
+    }
+    
+    .section-title {
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      text-align: center;
+      background: #1a1a1a;
+      color: #ffffff;
+      margin-bottom: 3rem;
+      margin-top: -15px;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 32px 0 16px 0;
+      border-radius: 15px 15px 0 0;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.3);
+      border-top: none;
+      border-bottom: none;
+      border-left: none;
+      border-right: none;
+      z-index: 350;
+      box-shadow: none;
+      overflow: visible;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Toy Car Animation */
+    .toy-car-container {
+      position: absolute;
+      top: 3%;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 401;
+      transform: translateY(0);
+      margin-top: 0;
+      display: none; /* Hidden for now, can be restored by removing this line */
+    }
+    
+    .toy-car {
+      position: absolute;
+      left: -150px;
+      top: 56%;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 401;
+    }
+    
+    .bmw-car-image {
+      width: auto;
+      height: 80px;
+      max-width: 280px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+      display: block;
+    }
+    
+    .toy-car.animate {
+      animation: car-race 5s ease-in-out forwards;
+      opacity: 1;
+    }
+    
+    @keyframes car-race {
+      0% {
+        left: -150px;
+        opacity: 0;
+      }
+      5% {
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-50%) scale(1.08);
+      }
+      95% {
+        opacity: 1;
+      }
+      100% {
+        left: calc(100% + 150px);
+        transform: translateY(-50%) scale(1);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes digital-shimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+    
+    @keyframes digital-glow {
+      0% {
+        filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.6)) drop-shadow(0 0 40px rgba(255, 0, 0, 0.4));
+      }
+      100% {
+        filter: drop-shadow(0 0 30px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 60px rgba(255, 0, 0, 0.6));
+      }
+    }
+    
+    
+    
+    /* Footer Styles */
+    .footer {
+      background: #0a0a0a;
+      color: #fff;
+      padding: 50px 20px 40px;
+      margin-top: 0;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    
+    .footer-section {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .footer-logo {
+      height: 60px;
+      width: auto;
+      max-width: 200px;
+      margin-top: 20px;
+      margin-left: -35px;
+      filter: brightness(0) invert(1);
+      display: block;
+      object-fit: contain;
+    }
+    
+    .footer-title {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #fff;
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+    }
+    
+    .footer-text {
+      color: #cccccc;
+      line-height: 1.8;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    
+    .footer-section-title {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #ffffff;
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+    }
+    
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: #cccccc;
+      font-size: clamp(0.85rem, 1.3vw, 0.95rem);
+      line-height: 1.6;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    
+    .footer-contact-item i {
+      font-size: 1.1rem;
+      color: #ffffff;
+      width: 20px;
+      text-align: center;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    
+    .footer-contact-item a {
+      color: #cccccc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-contact-item a:hover {
+      color: var(--accent);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cccccc;
+      font-size: clamp(0.75rem, 1.2vw, 0.85rem);
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    
+    .footer-bottom p {
+      color: #cccccc;
+      margin: 0;
+    }
+    
+    .footer-creator {
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cccccc;
+      font-size: 0.9rem;
+    }
+    
+    .footer-creator-text {
+      margin-top: 15px;
+      font-size: 0.85rem;
+      color: #999;
+      font-family: 'Inter', Arial, sans-serif;
+      line-height: 1.6;
+    }
+    
+    .company-name {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    
+    .company-name {
+      color: var(--accent);
+      font-weight: 500;
+    }
+    
+    /* Partners Section */
+    .partners-section {
+      padding: 0 !important;
+      padding-bottom: 0 !important;
+      padding-top: 10px !important;
+      background: #1a1a1a;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      margin: 0 !important;
+      margin-top: 0;
+      margin-bottom: 0 !important;
+      line-height: 0;
+    }
+    
+    .partners-container {
+      max-width: 100%;
+      margin: 0 !important;
+      margin-bottom: 0 !important;
+      padding: 0 !important;
+      padding-bottom: 0 !important;
+      position: relative;
+      width: 100%;
+      line-height: 0;
+    }
+    
+    .partners-title {
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      text-align: center;
+      color: #ffffff;
+      margin: 0 !important;
+      margin-top: 15px !important;
+      margin-bottom: 0 !important;
+      padding: 0 20px !important;
+      padding-bottom: 0 !important;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      line-height: 1.2;
+    }
+    
+    .partners-slider {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 0 !important;
+      padding-bottom: 0 !important;
+      margin: 0 !important;
+      margin-bottom: 0 !important;
+      line-height: 0;
+    }
+    
+    .partners-track {
+      display: flex;
+      gap: 60px;
+      animation: slidePartners 30s linear infinite;
+      width: max-content;
+      margin: 0 !important;
+      margin-bottom: 0 !important;
+      padding: 0 !important;
+      padding-bottom: 0 !important;
+      line-height: 0;
+    }
+    
+    .partners-track:hover {
+      animation-play-state: running;
+    }
+    
+    @keyframes slidePartners {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    
+    .partner-item {
+      flex-shrink: 0;
+      width: 400px;
+      height: auto;
+      min-height: 0;
+      max-height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border-radius: 0;
+      padding: 0 !important;
+      padding-bottom: 0 !important;
+      margin: 0 !important;
+      margin-bottom: 0 !important;
+      transition: all 0.3s ease;
+      border: none;
+      line-height: 0;
+    }
+    
+    .partner-item:hover {
+      background: transparent;
+      border-color: transparent;
+      transform: scale(1.05);
+      box-shadow: none;
+    }
+    
+    .partner-item img {
+      max-width: 100%;
+      max-height: 240px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      filter: brightness(0.9);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      margin: 0 !important;
+      margin-bottom: 0 !important;
+      padding: 0 !important;
+      padding-bottom: 0 !important;
+      display: block;
+      vertical-align: bottom;
+      line-height: 0;
+    }
+    
+    .partner-item:hover img {
+      filter: brightness(1.1);
+      transform: scale(1.1);
+    }
+    
+    /* Scroll to Top Button */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--lightning-red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5);
+      z-index: 999;
+      transition: all 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+      border: 2px solid #ffffff;
+      color: #ffffff;
+      font-size: 1.2rem;
+    }
+    
+    .scroll-top.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .scroll-top:hover {
+      transform: translateY(-5px);
+      background: var(--racing-red);
+      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.7);
+    }
+    
+    /* Responsive Design */
+    @media (min-width: 901px) {
+      .hero-header-overlay {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        text-align: left;
+        height: 72px;
+        padding: 0 32px;
+        gap: 0;
+        opacity: 1 !important;
+        visibility: visible !important;
+        background: rgba(24,24,24,0.0);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        z-index: 300;
+        display: flex;
+        box-shadow: none;
+        color: #222;
+        transition: background 0.3s, box-shadow 0.3s, color 0.3s;
+      }
+      
+      .partners-slider {
+        margin-top: 30px !important;
+      }
+      
+      .hero-header-overlay.visible,
+      .hero-header-overlay.at-end {
+        top: 0;
+      }
+      
+      .logo-placeholder {
+        height: 48px;
+        width: auto;
+        margin: 0 10px 0 0;
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        transform: translateY(-20%);
+      }
+      
+      .logo-placeholder img {
+        height: 48px;
+        max-height: 48px;
+        width: auto;
+        filter: brightness(0) invert(1);
+        transition: filter 0.3s;
+      }
+      
+      .hero-header-overlay.visible .logo-placeholder img {
+        filter: brightness(0) invert(1);
+      }
+      
+      .hero-header-overlay.visible .logo-placeholder {
+        color: #ffffff;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.32);
+      }
+      
+      .hero-header-logo-nav {
+        height: 24px;
+        width: auto;
+        margin: 0 10px 0 0;
+        filter: none;
+        display: none;
+        vertical-align: middle;
+        position: relative;
+        transform: translateY(-20%);
+      }
+      
+      .hero-mobile-logo,
+      .hero-mobile-menu-btn,
+      .hero-mobile-dropdown {
+        display: none !important;
+      }
+    }
+    
+    @media (max-width: 900px) {
+      .hero-header-nav {
+        display: none !important;
+      }
+      
+      .hero-header-overlay {
+        display: none !important;
+      }
+      
+      .hero-mobile-logo {
+        display: none !important;
+      }
+      
+      .hero-mobile-menu-btn {
+        display: block;
+      }
+      
+      .toy-car-container {
+        display: none !important;
+      }
+      
+      .toy-car {
+        display: none !important;
+      }
+      
+      .hero {
+        min-height: 70vh;
+        height: 70vh;
+        background-attachment: scroll;
+      }
+      
+      .hero-content {
+        margin: 0 auto;
+        margin-top: -20px;
+        padding: 20px;
+      }
+      
+      .hero-headline {
+        font-size: 2.09rem;
+      }
+      
+      .hero-headline img {
+        max-height: 289px;
+        width: auto;
+      }
+      
+      .hero-subheadline {
+        font-size: 0.95rem;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        align-items: center;
+      }
+      
+      .hero-btn {
+        width: 100%;
+        max-width: 266px;
+        min-height: 45.6px;
+        font-size: 1rem;
+        border-radius: 999px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.18s cubic-bezier(.4,0,.2,1), box-shadow 0.18s;
+        text-align: center;
+        box-sizing: border-box;
+        padding: 12px 24px !important;
+        line-height: 1;
+        vertical-align: middle;
+        margin-bottom: 0;
+        touch-action: manipulation;
+      }
+      
+      .hero-btn:active {
+        transform: scale(0.97);
+        box-shadow: 0 2px 12px rgba(231,76,60,0.18);
+      }
+      
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        max-width: 600px;
+        padding: 0 15px;
+      }
+      
+      .service-image {
+        height: 200px;
+      }
+      
+      .service-content h3 {
+        font-size: 1.2rem;
+      }
+      
+      .service-content p {
+        font-size: 0.9rem;
+      }
+      
+      .section-title {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+        border-radius: 0;
+        border-top: none;
+        border-bottom: none;
+        margin-bottom: 1rem;
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+      }
+      
+      .services-section-title {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+      }
+      
+      .hero-header-overlay.visible {
+        background: #1a1a1a !important;
+      }
+      
+      .card-badge {
+        display: none;
+      }
+      
+      .slider-dots {
+        display: none !important;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 0 15px;
+      }
+      
+      .service-image {
+        height: 220px;
+      }
+      
+      .service-content h3 {
+        font-size: 1.2rem;
+      }
+      
+      .service-content p {
+        font-size: 0.9rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+        letter-spacing: 3px;
+        border-radius: 0;
+        border-top: none;
+        border-bottom: none;
+        margin-bottom: 1rem;
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+      }
+      
+      .services-section-title {
+        font-size: 2rem;
+        letter-spacing: 3px;
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+      }
+      
+      .footer {
+        padding: 30px 20px 30px;
+      }
+      
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      
+      .footer-section {
+        align-items: center;
+        text-align: center;
+      }
+      
+      .footer-title {
+        margin-top: 0;
+      }
+      
+      .footer-contact {
+        align-items: center;
+      }
+      
+      .footer-logo {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .footer-creator-text {
+        display: none;
+      }
+      
+      .footer-creator-text-mobile {
+        display: block;
+        margin-top: 25px;
+        font-size: 0.85rem;
+        color: #999;
+        font-family: 'Inter', Arial, sans-serif;
+        line-height: 1.6;
+        text-align: center;
+      }
+    }
+    
+    .footer-creator-text-mobile {
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .services-offered-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .services-section-title {
+        font-size: 2rem;
+        padding: 20px 0;
+        letter-spacing: 2px;
+        margin-bottom: 2rem;
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+      }
+      
+      .service-offered-card {
+        padding: 30px 25px;
+      }
+      
+      .service-offered-card h3 {
+        font-size: 1.2rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+        padding: 20px 0;
+        letter-spacing: 3px;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        border-radius: 0;
+        border-top: none;
+        border-bottom: none;
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+      }
+      
+      .services-section {
+        padding: 0 0 35px 0;
+        margin-top: -60px;
+      }
+      
+      .services-offered-section {
+        padding: 15px 0 60px 0;
+        margin-top: -25px;
+      }
+      
+      .services-section-title {
+        margin-top: 0;
+        padding-top: 20px;
+      }
+      
+      .partners-section {
+        padding: 0;
+      }
+      
+      .partners-title {
+        font-size: 2rem;
+        letter-spacing: 4px;
+        margin-bottom: 2rem;
+        margin-top: 5px !important;
+      }
+      
+      .services-offered-section {
+        padding-bottom: 45px !important;
+      }
+      
+      .partner-item {
+        width: 300px;
+        height: 180px;
+        padding: 0;
+      }
+      
+      .partners-track {
+        gap: 40px;
+        animation-duration: 25s;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero-headline img {
+        max-height: 228px;
+      }
+      
+      .hero-subheadline {
+        font-size: 0.855rem;
+        padding: 0 15px;
+      }
+      
+      .section-title {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+        padding: 15px 0;
+        border-radius: 0;
+        border-top: none;
+        border-bottom: none;
+        margin-bottom: 1rem;
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+      }
+      
+      .services-section-title {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+        padding: 15px 0;
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+      }
+      
+      .service-content h3 {
+        font-size: 1.1rem;
+      }
+      
+      .service-content p {
+        font-size: 0.85rem;
+      }
+      
+      .service-btn {
+        font-size: 0.8rem;
+        padding: 10px 20px;
+        min-height: 44px;
+        touch-action: manipulation;
+      }
+      
+      .service-offered-card {
+        padding: 25px 20px;
+      }
+      
+      .service-offered-card h3 {
+        font-size: 1.1rem;
+      }
+      
+      .service-offered-card p {
+        font-size: 0.9rem;
+      }
+      
+      .partners-section {
+        padding: 0;
+      }
+      
+      .partners-title {
+        font-size: 1.5rem;
+        letter-spacing: 3px;
+        margin-bottom: 1.5rem;
+        margin-top: 5px !important;
+      }
+      
+      .services-offered-section {
+        padding-bottom: 40px !important;
+      }
+      
+      .partner-item {
+        width: 240px;
+        height: 140px;
+        padding: 0;
+      }
+      
+      .partners-track {
+        gap: 30px;
+        animation-duration: 20s;
+      }
+      
+      .services-grid {
+        padding: 0 10px;
+      }
+      
+      .card-badge {
+        width: 55px;
+        height: 55px;
+        top: -15px;
+        left: -15px;
+      }
+      
+      .card-badge img {
+        width: 35px;
+      }
+      
+      .service-image {
+        height: 200px;
+      }
+      
+      .footer {
+        padding: 25px 15px 25px;
+      }
+      
+      .footer-grid {
+        gap: 30px;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      
+      .footer-section {
+        align-items: center;
+        text-align: center;
+      }
+      
+      .footer-title {
+        margin-top: 0;
+      }
+      
+      .footer-logo {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .footer-creator-text {
+        display: none;
+      }
+      
+      .footer-creator-text-mobile {
+        display: block;
+        margin-top: 25px;
+        font-size: 0.85rem;
+        color: #999;
+        font-family: 'Inter', Arial, sans-serif;
+        line-height: 1.6;
+        text-align: center;
+      }
+      
+      .hero-btn {
+        font-size: 0.9rem;
+        padding: 13.3px 26.6px !important;
+        max-width: 252.7px;
+        min-height: 43.32px;
+      }
+      
+      .scroll-top {
+        width: 45px;
+        height: 45px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loading-screen">
-        <div class="loading-logo">
-            <img src="logo.png" alt="ELEVEN WORKSHOP Logo" class="loading-logo-img">
-        </div>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <img src="./perfection86.webp" alt="Perfection 86 Logo" class="loading-logo">
+    <div class="loading-progress-container">
+      <div class="loading-progress-bar" id="loadingProgressBar"></div>
+    </div>
+    <div class="loading-percentage" id="loadingPercentage">0%</div>
+  </div>
+  <!-- Hero Header Overlay - Transparent -->
+  <div class="hero-header-overlay" id="hero-header-overlay">
+    <nav class="hero-header-nav">
+      <!-- Replace with actual logo image: <img src="./Images/logo.png" alt="Auto Restoration Logo" class="hero-header-logo" /> -->
+      <div class="logo-placeholder">
+        <img src="./headerologpng.png" alt="Perfection86 Logo" class="hero-header-logo">
+      </div>
+      <a href="./under-construction.html">SĀKUMS</a>
+      <a href="./under-construction.html">PAKALPOJUMI</a>
+      <a href="./under-construction.html">PAR MUMS</a>
+      <a href="./under-construction.html">KONTAKTI</a>
+    </nav>
+  </div>
+
+  <!-- Hero Section -->
+  <header class="hero" id="home">
+    <!-- Hero Video Background -->
+    <video class="hero-video" src="./herovideo.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto" x-webkit-airplay="allow" disablePictureInPicture style="pointer-events: none;"></video>
+    
+    <!-- Mobile Logo and Menu -->
+    <!-- Replace with actual logo: <img src="./Images/logo.png" alt="Auto Restoration Logo" class="hero-mobile-logo" /> -->
+    <img src="./headerologpng.png" alt="Perfection86 Logo" class="hero-mobile-logo">
+    <button class="hero-mobile-menu-btn" id="hero-mobile-menu-btn" aria-label="Open menu">☰</button>
+    <div class="hero-mobile-dropdown" id="hero-mobile-dropdown">
+      <a href="./under-construction.html">Sākums</a>
+      <a href="./under-construction.html">Pakalpojumi</a>
+      <a href="./under-construction.html">Par mums</a>
+      <a href="./under-construction.html">Kontakti</a>
     </div>
     
-    <!-- Custom Cursor -->
-    <div class="custom-cursor"></div>
-    <div class="custom-cursor-dot"></div>
-    
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <img src="logo.png" alt="Logo" class="logo-img">
-            </div>
-            <button class="nav-menu-toggle" id="nav-menu-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <div class="nav-menu" id="nav-menu">
-                <a href="under-construction.html" class="nav-link">PAKALPOJUMI</a>
-                <a href="under-construction.html" class="nav-link">SADARBĪBA</a>
-                <a href="under-construction.html" class="nav-link">KONTAKTI</a>
-                <a href="under-construction.html" class="nav-link">CENRĀDIS</a>
-            </div>
-        </div>
-    </nav>
+    <!-- Hero Content -->
+    <div class="hero-content" id="hero-content">
+      <div class="hero-headline">
+        <img src="./perfection86.webp" alt="PROFESSIONAL AUTO RESTORATION">
+      </div>
+      <div class="hero-subheadline">Mašīnu restaurācijas un pārkrāsošanas pakalpojumi</div>
+      <div class="hero-buttons">
+        <a href="./under-construction.html" class="hero-btn primary">PAKALPOJUMI</a>
+        <a href="./under-construction.html" class="hero-btn secondary">KONTAKTI</a>
+      </div>
+    </div>
+  </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title"><span class="hero-eleven">ELEVEN</span> <span class="hero-workshop">WORKSHOP</span></h1>
-            <div class="hero-subtitle">
-                <span class="release-date">LIEPAJA I RUDBĀRŽU IELA 11</span>
+  <!-- Main Content -->
+  <main>
+    <!-- Projects Showcase Section -->
+    <section id="services" class="services-section">
+          <h2 class="section-title" data-text="REALIZĒTIE AUTO PROJEKTI">REALIZĒTIE AUTO PROJEKTI</h2>
+          <div class="toy-car-container">
+            <div class="toy-car" id="toy-car">
+              <img src="./bmw.png" alt="BMW Car" class="bmw-car-image">
             </div>
-            <div class="platforms">
-                <a href="under-construction.html" class="platform-link"><span>Autoserviss</span></a>
-                <a href="under-construction.html" class="platform-link"><span>Auto krāšošana</span></a>
+          </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="card-badge">
+            <img src="./perfection86.webp" alt="Perfection86 Badge">
+          </div>
+          <div class="service-image">
+            <div class="image-slider mustang-slider">
+              <div class="slider-wrapper">
+                <img src="./1.jpg" alt="Nissan R34 Skyline Image 1" class="slide active">
+                <img src="./2.jpg" alt="Nissan R34 Skyline Image 2" class="slide">
+                <img src="./3.jpg" alt="Nissan R34 Skyline Image 3" class="slide">
+                <img src="./4.jpg" alt="Nissan R34 Skyline Image 4" class="slide">
+              </div>
+              <div class="slider-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+                <span class="dot" data-slide="3"></span>
+              </div>
             </div>
-            <div class="hero-buttons">
-                <a href="under-construction.html" class="btn-trailer" style="text-decoration: none; display: inline-block;">SKATĪTIES YOUTUBE</a>
-                <a href="under-construction.html" class="btn-trailer" style="text-decoration: none; display: inline-block;">KONTAKTI</a>
+          </div>
+          <div class="service-content">
+            <div class="project-tags">
+              <span class="project-tag">Krāsošana</span>
+              <span class="project-tag">Virsbūves remonts</span>
+              <span class="project-tag">Gruntēšana</span>
             </div>
+            <h3>NISSAN R34 SKYLINE</h3>
+            <p>Pilnīga virsbūves pārkrāsošana un atjaunošana ietvēra darbu pilnā spektrā – sākām ar rūpīgu virsbūves sagatavošanu, noņemot veco krāsu, izlīdzinot visas virsmas un novēršot visus defektus. Pēc tam tika veikta profesionāla gruntēšana un augstas kvalitātes krāsošana ar mūsdienīgākajiem materiāliem, nodrošinot vizuāli nevainojamu un ilgstoši izturīgu rezultātu visā virsbūvē.</p>
+            <a href="./car-project.html?car=r34" class="service-btn">Skatīt detalizēti →</a>
+          </div>
         </div>
-    </section>
-
-    <!-- Vice City Section -->
-    <section class="intro-section">
-        <div class="container intro-container">
-            <div class="intro-content">
-                <h2 class="section-title">MĒS PIEDĀVAJAM</h2>
-                <p class="section-text">
-                    Pilnu auto apkalpošanas klāstu vienuviet – profesionālu auto krāsošanu ar precīzu krāsas saskaņošanu, kvalitatīvu auto aplīmēšanu gan dizainam, gan virsbūves aizsardzībai, kā arī virsbūves pulēšanu, kas atjauno spīdumu un novērš sīkos defektus. Mūsu autoserviss nodrošina diagnostiku, regulārās apkopes un dažādu mezglu remontu, savukārt pieredzējuši speciālisti ātri un droši novērš jebkādus auto defektus, nodrošinot augstu kvalitāti un uzticamību katram klientam.
-                </p>
+        
+        <div class="service-card">
+          <div class="card-badge">
+            <img src="./perfection86.webp" alt="Perfection86 Badge">
+          </div>
+          <div class="service-image">
+            <div class="image-slider corvette-slider">
+              <div class="slider-wrapper">
+                <img src="./11.jpg" alt="BMW E30 Image 11" class="slide active">
+                <img src="./12.jpg" alt="BMW E30 Image 12" class="slide">
+                <img src="./13.jpg" alt="BMW E30 Image 13" class="slide">
+              </div>
+              <div class="slider-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+              </div>
             </div>
-            <div class="intro-image">
-                <img src="bilde.png" alt="Vice City" class="bilde-img">
+          </div>
+          <div class="service-content">
+            <div class="project-tags">
+              <span class="project-tag">Pilnīga restaurācija</span>
+              <span class="project-tag">Dzinējs</span>
+              <span class="project-tag">Virsbūve</span>
             </div>
+            <h3>BMW E30</h3>
+            <p>Šis projekts bija pilnīga auto restaurācija, kas nozīmēja visu transportlīdzekļa atjaunošanu no nulles. Mēs veicām dzinēja kapitālo remontu, pilnīgu virsbūves restaurāciju un krāsošanu, kā arī pilnībā atjaunojām interjeru un nomainījām visas nepieciešamās detaļas, tādējādi panākot oriģinālu izskatu apvienojumā ar uzticamu tehnisko darbību.</p>
+            <a href="./car-project.html?car=e30" class="service-btn">Skatīt detalizēti →</a>
+          </div>
         </div>
-    </section>
-
-    <!-- Virsbūves atjaunošana Section -->
-    <section class="character-section">
-        <div class="character-container">
-            <div class="character-content">
-                <h2 class="character-name">Virsbūves atjaunošana</h2>
-                <p class="character-description">
-                    Virsbūves atjaunošana ir būtiska, lai auto saglabātu izskatu un vērtību, un tieši tāpēc ir svarīgi izvēlēties pareizos speciālistus. Pie mums tā tiek veikta rūpīgi, ar kvalitatīdiem materiāliem un profesionālu pieeju, nodrošinot izturīgu un vizuāli nevainojamu rezultātu, kam var uzticēties.
-                </p>
-                <div class="character-quotes">
-                    <p class="quote">Pieredzējusi komanda ar daudzu gadu zināšanām.</p>
-                    <p class="quote">Tikai kvalitatītas detaļas un materiāli ilgnoturīgam rezultātam.</p>
-                </div>
-                <p class="character-description">
-                    Vairāku gadu garumā esam veikuši simtiem auto virsbūves remonta projektu, un šī pieredze ļauj mums sniegt stabilu, kvalitatīvu un uzticamu pakalpojumu katram klientam.
-                </p>
+        
+        <div class="service-card">
+          <div class="card-badge">
+            <img src="./perfection86.webp" alt="Perfection86 Badge">
+          </div>
+          <div class="service-image">
+            <div class="image-slider chevelle-slider">
+              <div class="slider-wrapper">
+                <img src="./sup3.jpg" alt="Toyota Supra Image sup3" class="slide active">
+                <img src="./sup1.jpg" alt="Toyota Supra Image sup1" class="slide">
+                <img src="./sup.jpg" alt="Toyota Supra Image sup" class="slide">
+              </div>
+              <div class="slider-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+              </div>
             </div>
-            <div class="character-image">
-                <img src="PEC.jpg" alt="After" class="jason-image" id="jason-image">
+          </div>
+          <div class="service-content">
+            <div class="project-tags">
+              <span class="project-tag">Pilnīga restaurācija</span>
+              <span class="project-tag">Virsbūve</span>
+              <span class="project-tag">Dzinējs</span>
             </div>
+            <h3>TOYOTA SUPRA</h3>
+            <p>Mēs realizējām pilnīgu restaurāciju visā spektrā, sākot no dzinēja kapitālā remonta līdz pat virsbūves atjaunošanai. Restaurācijas procesā tika iekļauta visu sistēmu rūpīga pārbaude un defektācija, nepieciešamo komponentu nomaiņa un profesionāla krāsošana, kas garantēja, ka auto iegūst ne tikai oriģinālu izskatu, bet arī tehniski darbojas kā jauns.</p>
+            <a href="./car-project.html?car=supra" class="service-btn">Skatīt detalizēti →</a>
+          </div>
         </div>
-    </section>
-
-    <!-- AUTO KRĀSOŠANA Section -->
-    <section class="character-section alt">
-        <div class="character-container">
-            <div class="character-content">
-                <h2 class="character-name">AUTO KRĀSOŠANA</h2>
-                <p class="character-description">
-                    Krāsošanas un virsbūves atjaunošanas pakalpojumos mūsu komandai ir uzkrāta liela pieredze. Mēs izmantojam tikai labākos materiālus un augstas klases aprīkojumu, lai garantētu izturīgu, precīzu un vizuāli nevainojamu rezultātu, kas atbilst augstākajiem standartiem.
-                </p>
-                <div class="character-quotes">
-                    <p class="quote">Pieredze gan ar ikdienas auto krāsošanā, gan reto, gan klasiku</p>
-                    <p class="quote">Darbs tiek veikts profesionālā krāsošanas kamerā, kas nodrošina tīru, kontrolētu vidi un kvalitatīvu rezultātu bez putekļiem un defektiem</p>
-                </div>
-                <p class="character-description">
-                    Esam krāsojuši visu — sākot no klasiskā Porsche 911 līdz pat jaunākajiem BMW X5 modeļiem, nodrošinot augstākās kvalitātes rezultātu jebkuram auto.
-                </p>
+        
+        <div class="service-card">
+          <div class="card-badge">
+            <img src="./perfection86.webp" alt="Perfection86 Badge">
+          </div>
+          <div class="service-image">
+            <div class="image-slider camaro-slider">
+              <div class="slider-wrapper">
+                <img src="./z1.jpg" alt="Nissan Skyline Image z1" class="slide active">
+                <img src="./z2.jpg" alt="Nissan Skyline Image z2" class="slide">
+                <img src="./z3.jpg" alt="Nissan Skyline Image z3" class="slide">
+              </div>
+              <div class="slider-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+              </div>
             </div>
-            <div class="character-image">
-                <img src="pirms2.jpg" alt="Auto Krāsošana" class="jason-image" id="autokrasosana-image">
+          </div>
+          <div class="service-content">
+            <div class="project-tags">
+              <span class="project-tag">Krāsošana</span>
+              <span class="project-tag">Virsbūves remonts</span>
+              <span class="project-tag">Gruntēšana</span>
             </div>
+            <h3>NISSAN SKYLINE</h3>
+            <p>Šajā projektā tika veikta pilnīga virsbūves pārkrāsošana un atjaunošana, kas ietvēra detalizētu virsbūves sagatavošanu, veco krāsu noņemšanu, virsmu izlīdzināšanu un defektu korekciju. Gala rezultāts tika panākts, izmantojot profesionālu gruntēšanu un augstas kvalitātes krāsošanu ar mūsdienīgākajiem materiāliem, nodrošinot ideālu rezultātu visā virsbūvē.</p>
+            <a href="./car-project.html?car=skyline" class="service-btn">Skatīt detalizēti →</a>
+          </div>
         </div>
-    </section>
-
-    <!-- Features Slide Section -->
-    <section class="features-slide-section">
-        <div class="features-slide-wrapper">
-            <div class="features-slide-track">
-                <div class="feature-slide-item">
-                    <div class="feature-slide-icon">
-                        <i class="fas fa-box"></i>
-                    </div>
-                    <span class="feature-slide-text">Vairāki sadarbības partneri</span>
-                </div>
-                <div class="feature-slide-item">
-                    <div class="feature-slide-icon">
-                        <i class="fas fa-car"></i>
-                    </div>
-                    <span class="feature-slide-text">VISU AUTO MARKU SERVISS</span>
-                </div>
-                <div class="feature-slide-item">
-                    <div class="feature-slide-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <span class="feature-slide-text">Pieredzējusi kommanda</span>
-                </div>
-                <!-- Duplicates for seamless infinite loop -->
-                <div class="feature-slide-item">
-                    <div class="feature-slide-icon">
-                        <i class="fas fa-box"></i>
-                    </div>
-                    <span class="feature-slide-text">Vairāki sadarbības partneri</span>
-                </div>
-                <div class="feature-slide-item">
-                    <div class="feature-slide-icon">
-                        <i class="fas fa-car"></i>
-                    </div>
-                    <span class="feature-slide-text">VISU AUTO MARKU SERVISS</span>
-                </div>
-                <div class="feature-slide-item">
-                    <div class="feature-slide-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <span class="feature-slide-text">Pieredzējusi kommanda</span>
-                </div>
-                <!-- Additional duplicates for smoother loop -->
-                <div class="feature-slide-item">
-                    <div class="feature-slide-icon">
-                        <i class="fas fa-box"></i>
-                    </div>
-                    <span class="feature-slide-text">Vairāki sadarbības partneri</span>
-                </div>
-                <div class="feature-slide-item">
-                    <div class="feature-slide-icon">
-                        <i class="fas fa-car"></i>
-                    </div>
-                    <span class="feature-slide-text">VISU AUTO MARKU SERVISS</span>
-                </div>
-                <div class="feature-slide-item">
-                    <div class="feature-slide-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <span class="feature-slide-text">Pieredzējusi kommanda</span>
-                </div>
-            </div>
-        </div>
+        
+      </div>
     </section>
 
     <!-- Services Section -->
-    <section class="services-section">
-        <div class="container">
-            <div class="services-header">
-                <h2 class="section-title">MŪSU SNIEGTIE PAKALPOJUMI</h2>
+    <section id="services-offered" class="services-offered-section">
+      <div class="container">
+        <h2 class="services-section-title">Pakalpojumu klāsts</h2>
+        <div class="services-offered-grid">
+          <div class="service-offered-card">
+            <img src="./evo.png" alt="Towing Truck" class="service-icon-img">
+            <h3>Autoevakuātora pakalpojumi</h3>
+            <p>Nereti gadās, ka dažādu iemeslu dēļ auto pēkšņi vairs nav iespējams iedarbināt vai nav iespējams piedalīties satiksmē. Visbiežāk šādu situāciju gadījumos pirmā doma ir – zvans draugam, bet ne vienmēr tas ir labākais risinājums.</p>
+          </div>
+          
+          <div class="service-offered-card">
+            <img src="./paint.png" alt="Paint Brush" class="service-icon-img">
+            <h3>Auto virsbūves krāsošana un remonts</h3>
+            <p>Auto krāsošana ir darbs ar kuru agrāk vai vēlāk nākas saskarties gandrīz ikvienam auto vadītājam. Neatkarīgi no tā vai vēlies savam auto atjaunot sākotnējo spīdumu pārkrāsojot visu virsbūvi, vai tikai izlabot kādu nelielu defektu, Perfection 86 meistari par to parūpēsies.</p>
+          </div>
+          
+           <div class="service-offered-card">
+             <img src="./motors.png" alt="Engine" class="service-icon-img motors">
+             <h3>Dzinēju remonts un apkope</h3>
+             <p>Dzinējs ir viens no vissarežģītākajiem automašīnas agregātiem. No motora tehniskā stāvokļa ir atkarīga tā jauda, degvielas un eļļas patēriņš, kā arī visa automobiļa ekspluatācija. Tāpēc visā automobiļa ekspluatācijas laikā ir ļoti svarīgi savlaicīgi ievērot un novērst visus, tā atsevišķo mehānismu un sistēmas darbības traucējumus, kā arī veikt savlaicīgas apkopes.</p>
+           </div>
+           
+          <div class="service-offered-card">
+            <img src="./riepa.png" alt="Tire" class="service-icon-img riepa">
+            <h3>Ritošās daļas remonts</h3>
+            <p>Visbiežākās problēmas ar ritošo daļu var novērot bremžu sistēmā, savirzē, stūres mehānismā.<br><br>Kā jebkura auto remonta procesa sākumā ir jāveic diagnostika, lai precīzi saprastu, kura detaļa ir nolietojusies vai bojāta. Nereti, protams, izjūtot konkrētus traucējumus auto vadīšanā var secināt uzreiz, kas tieši ir par problēmu, bet ne vienmēr.</p>
+          </div>
+           
+          <div class="service-offered-card">
+            <img src="./details.png" alt="Details" class="service-icon-img details">
+            <h3>VIRSBŪVES PULEŠANA</h3>
+            <p>Automašīnas virsbūves pulēšanu var veikt neatkarīgi no krāsas un izmēra. Auto pulēšana komplektā ar auto vaskošanu pasargās automašīnu no apkārtējās vides – lietus, sāļiem, apkārtējās ķīmijas. Auto virsbūves pulēšanas laiks un izmaksas iespējams noteikt redzot automašīnu un saprotot klienta vēlmes un iespējas.</p>
+          </div>
+           
+          <div class="service-offered-card">
+            <img src="./res3.png" alt="Restoration" class="service-icon-img">
+            <h3>RESTUARĀCIJA</h3>
+            <p>Perfection 86 darbnīca nodarbojas ar profesionālu auto restaurāciju no A līdz Z! Ja Tavā īpašumā ir kāds sens vai īpašs auto, kuru skāris "laika zobs", bet vēlies tam dot otro dzīvību – mēs Tev palīdzēsim. Esam restaurējuši tādus ikoniskus auto kā Wandarer W23, Nissan Skyline R34, Toyota Supra, BMW E30, Toyota AE86 un daudz citu.</p>
+          </div>
+         </div>
+       </div>
+     </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section">
+      <div class="partners-container">
+        <h2 class="partners-title">MŪSU SADARBĪBAS PARTNERI</h2>
+        <div class="partners-slider">
+          <div class="partners-track">
+            <div class="partner-item">
+              <img src="./partneri/baltalogo.webp" alt="Balta Logo">
             </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon service-icon-image">
-                        <img src="krasa.png" alt="Auto Krāsošana" class="service-krasa-image">
-                    </div>
-                    <h3 class="service-title">AUTO KRĀSOŠANA</h3>
-                    <p class="service-description">Profesionāla auto krāsošana ar precīzu krāsas saskaņošanu. Mēs nodrošinām augstas kvalitātes rezultātus, izmantojot modernus materiālus un tehnoloģijas.</p>
-                    <a href="under-construction.html" class="service-link">SKATĪT <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-layer-group"></i>
-                    </div>
-                    <h3 class="service-title">AUTO APLĪMĒŠANA</h3>
-                    <p class="service-description">Kvalitatīva auto aplīmēšana gan dizainam, gan virsbūves aizsardzībai. Plašs dizainu klāsts un profesionāla uzklāšana.</p>
-                    <a href="under-construction.html" class="service-link">SKATĪT <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon service-icon-image">
-                        <img src="virsbuve (1).png" alt="Virsbūves Pulēšana" class="service-virsbuve-image">
-                    </div>
-                    <h3 class="service-title">VIRSBŪVES PULĒŠANA</h3>
-                    <p class="service-description">Virsbūves pulēšana, kas atjauno spīdumu un novērš sīkos defektus. Mūsu pakalpojums atjauno jūsu auto sākotnējo izskatu.</p>
-                    <a href="under-construction.html" class="service-link">SKATĪT <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3 class="service-title">AUTOSERVISS</h3>
-                    <p class="service-description">Diagnostika, regulārās apkopes un dažādu mezglu remonts. Pieredzējuši speciālisti un modernas iekārtas jūsu auto apkalpošanai.</p>
-                    <a href="under-construction.html" class="service-link">SKATĪT <i class="fas fa-arrow-right"></i></a>
-                </div>
+            <div class="partner-item">
+              <img src="./partneri/btalogo.webp" alt="BTA Logo">
             </div>
+            <div class="partner-item">
+              <img src="./partneri/dtslogo.webp" alt="DTS Logo">
+            </div>
+            <div class="partner-item">
+              <img src="./partneri/ergologo.webp" alt="Ergo Logo">
+            </div>
+            <div class="partner-item">
+              <img src="./partneri/gjeslogo.webp" alt="GJES Logo">
+            </div>
+            <div class="partner-item">
+              <img src="./partneri/iflogo.webp" alt="IF Logo">
+            </div>
+            <div class="partner-item">
+              <img src="./partneri/ragslogo.webp" alt="RAGS Logo">
+            </div>
+            <div class="partner-item">
+              <img src="./partneri/tehnicolorlogo.webp" alt="Technicolor Logo">
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="partner-item">
+              <img src="./partneri/baltalogo.webp" alt="Balta Logo">
+            </div>
+            <div class="partner-item">
+              <img src="./partneri/btalogo.webp" alt="BTA Logo">
+            </div>
+            <div class="partner-item">
+              <img src="./partneri/dtslogo.webp" alt="DTS Logo">
+            </div>
+            <div class="partner-item">
+              <img src="./partneri/ergologo.webp" alt="Ergo Logo">
+            </div>
+            <div class="partner-item">
+              <img src="./partneri/gjeslogo.webp" alt="GJES Logo">
+            </div>
+            <div class="partner-item">
+              <img src="./partneri/iflogo.webp" alt="IF Logo">
+            </div>
+            <div class="partner-item">
+              <img src="./partneri/ragslogo.webp" alt="RAGS Logo">
+            </div>
+            <div class="partner-item">
+              <img src="./partneri/tehnicolorlogo.webp" alt="Technicolor Logo">
+            </div>
+          </div>
         </div>
+      </div>
     </section>
-
-    <!-- YouTube Videos Section -->
-    <section class="youtube-section">
-        <div class="container">
-            <div class="youtube-header">
-                <h2 class="section-title">POPULĀRĀKIE VIDEO</h2>
-            </div>
-            <div class="youtube-grid">
-                <!-- Desktop: Direct cards in grid -->
-                <a href="under-construction.html" style="text-decoration: none; color: inherit;">
-                    <div class="youtube-card youtube-card-desktop">
-                        <div class="youtube-embed youtube-image">
-                            <img src="video1.jpg" alt="Video 1" class="video-thumbnail">
-                            <div class="play-button-overlay">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <h3 class="youtube-title">BMW Z SERIJAS</h3>
-                    </div>
-                </a>
-                <a href="under-construction.html" style="text-decoration: none; color: inherit;">
-                    <div class="youtube-card youtube-card-desktop">
-                        <div class="youtube-embed youtube-image">
-                            <img src="video2.jpg" alt="Video 2" class="video-thumbnail">
-                            <div class="play-button-overlay">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <h3 class="youtube-title">BMW E61 PROJEKTS</h3>
-                    </div>
-                </a>
-                <a href="under-construction.html" style="text-decoration: none; color: inherit;">
-                    <div class="youtube-card youtube-card-desktop">
-                        <div class="youtube-embed youtube-image">
-                            <img src="video3.jpg" alt="Video 3" class="video-thumbnail">
-                            <div class="play-button-overlay">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <h3 class="youtube-title">JAUNIŅAIS VS VETERĀNS</h3>
-                    </div>
-                </a>
-            </div>
-            <!-- Mobile: Slider -->
-            <div class="youtube-slider-wrapper">
-                <div class="youtube-slider-track" id="youtube-slider-track">
-                    <a href="under-construction.html" style="text-decoration: none; color: inherit; display: block;">
-                        <div class="youtube-card">
-                            <div class="youtube-embed youtube-image">
-                                <img src="video1.jpg" alt="Video 1" class="video-thumbnail">
-                                <div class="play-button-overlay">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                            </div>
-                            <h3 class="youtube-title">BMW Z SERIJAS</h3>
-                        </div>
-                    </a>
-                    <a href="under-construction.html" style="text-decoration: none; color: inherit; display: block;">
-                        <div class="youtube-card">
-                            <div class="youtube-embed youtube-image">
-                                <img src="video2.jpg" alt="Video 2" class="video-thumbnail">
-                                <div class="play-button-overlay">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                            </div>
-                            <h3 class="youtube-title">BMW E61 PROJEKTS</h3>
-                        </div>
-                    </a>
-                    <a href="under-construction.html" style="text-decoration: none; color: inherit; display: block;">
-                        <div class="youtube-card">
-                            <div class="youtube-embed youtube-image">
-                                <img src="video3.jpg" alt="Video 3" class="video-thumbnail">
-                                <div class="play-button-overlay">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                            </div>
-                            <h3 class="youtube-title">JAUNIŅAIS VS VETERĀNS</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="youtube-dots" id="youtube-dots">
-                    <span class="dot active" data-index="0"></span>
-                    <span class="dot" data-index="1"></span>
-                    <span class="dot" data-index="2"></span>
-                </div>
-            </div>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h3 class="footer-title">PERFECTION 86</h3>
+          <img src="./perfection86.webp" alt="Perfection 86 Logo" class="footer-logo">
+          <p class="footer-text">Mašīnu restaurācijas un pārkrāsošanas pakalpojumi</p>
+          <p class="footer-creator-text">Mājas lapu izstrādāja SIA A&J Marketing group</p>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="character-section">
-        <div class="character-container">
-            <div class="character-content">
-                <h2 class="character-name">KONTAKTI</h2>
-                <div class="contact-info">
-                    <p class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Rudbāržu iela 11, Liepaja, Latvia</span>
-                    </p>
-                    <p class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>26 488 356</span>
-                    </p>
-                    <p class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>artursj7@gmail.com</span>
-                    </p>
-                    <p class="contact-item">
-                        <i class="fas fa-clock"></i>
-                        <span>9:00-18:00</span>
-                    </p>
-                </div>
-            </div>
-            <div class="character-image">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2233.4567890123!2d21.0087!3d56.5075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTbCsDMwJzI3LjAiTiAyMcKwMDAnMzEuMyJF!5e0!3m2!1slv!2slv!4v1234567890123!5m2!1slv!2slv&q=Rudbāržu+iela+11,+Liepāja,+LV-3401" 
-                    width="100%" 
-                    height="100%" 
-                    style="border:0; border-radius: 8px;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
+        <div class="footer-section">
+          <h4 class="footer-section-title">KONTAKTI</h4>
+          <div class="footer-contact">
+            <p class="footer-contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Kungu iela 87a, Liepāja, LV-3401</span>
+            </p>
+            <p class="footer-contact-item">
+              <i class="fas fa-phone"></i>
+              <a href="./under-construction.html">+371 24 987 686</a>
+            </p>
+            <p class="footer-contact-item">
+              <i class="fas fa-envelope"></i>
+              <a href="./under-construction.html">sveilisaivis@gmail.com</a>
+            </p>
+          </div>
         </div>
-    </section>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 SA Autoserviss. Visas tiesības aizsargātas.</p>
+        <p class="footer-creator-text-mobile">Mājas lapu izstrādāja SIA A&J Marketing group</p>
+      </div>
+    </div>
+  </footer>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h3 class="footer-title">ELEVEN WORKSHOP</h3>
-                    <p class="footer-text">Profesionāls auto apkalpošanas serviss Liepājā</p>
-                </div>
-                <div class="footer-section">
-                    <h4 class="footer-section-title">KONTAKTI</h4>
-                    <div class="footer-contact">
-                        <p class="footer-contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Rudbāržu iela 11, Liepaja, Latvia</span>
-                        </p>
-                        <p class="footer-contact-item">
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:26488356">26 488 356</a>
-                        </p>
-                        <p class="footer-contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <a href="mailto:artursj7@gmail.com">artursj7@gmail.com</a>
-                        </p>
-                        <p class="footer-contact-item">
-                            <i class="fas fa-clock"></i>
-                            <span>9:00-18:00</span>
-                        </p>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4 class="footer-section-title">SOCIAL MEDIA</h4>
-                    <div class="footer-social">
-                        <a href="under-construction.html" class="social-link" aria-label="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="under-construction.html" class="social-link" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="under-construction.html" class="social-link" aria-label="YouTube">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                        <a href="under-construction.html" class="social-link" aria-label="Google Maps">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 ELEVEN WORKSHOP. Visas tiesības aizsargātas.</p>
-                <div class="footer-creator" style="margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                        Mājaslapu izveidoja <strong style="color: var(--accent);">SIA A&J Marketing group</strong>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+  <script>
+    // Loading Screen Logic
+    (function() {
+      const loadingScreen = document.getElementById('loadingScreen');
+      const progressBar = document.getElementById('loadingProgressBar');
+      const loadingPercentage = document.getElementById('loadingPercentage');
+      
+      if (!loadingScreen || !progressBar || !loadingPercentage) return;
+      
+      // Collect all images and videos (excluding loading screen logo)
+      const images = Array.from(document.querySelectorAll('img')).filter(img => 
+        !img.classList.contains('loading-logo')
+      );
+      const videos = document.querySelectorAll('video');
+      const totalAssets = images.length + videos.length;
+      let loadedAssets = 0;
+      
+      // If no assets to load, hide loader immediately
+      if (totalAssets === 0) {
+        setTimeout(() => {
+          loadingScreen.classList.add('hidden');
+          document.body.classList.remove('loading');
+          setTimeout(() => {
+            loadingScreen.style.display = 'none';
+          }, 500);
+        }, 500);
+        return;
+      }
+      
+      function updateProgress() {
+        const progress = Math.min(Math.round((loadedAssets / totalAssets) * 100), 100);
+        progressBar.style.width = progress + '%';
+        loadingPercentage.textContent = progress + '%';
+        
+        if (loadedAssets >= totalAssets) {
+          // Small delay to show 100%
+          setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+            document.body.classList.remove('loading');
+            // Remove from DOM after animation
+            setTimeout(() => {
+              loadingScreen.style.display = 'none';
+            }, 500);
+          }, 300);
+        }
+      }
+      
+      // Track image loading
+      images.forEach(img => {
+        if (img.complete) {
+          loadedAssets++;
+          updateProgress();
+        } else {
+          img.addEventListener('load', () => {
+            loadedAssets++;
+            updateProgress();
+          });
+          img.addEventListener('error', () => {
+            loadedAssets++;
+            updateProgress();
+          });
+        }
+      });
+      
+      // Track video loading
+      videos.forEach(video => {
+        if (video.readyState >= 3) { // HAVE_FUTURE_DATA or higher
+          loadedAssets++;
+          updateProgress();
+        } else {
+          video.addEventListener('canplaythrough', () => {
+            loadedAssets++;
+            updateProgress();
+          }, { once: true });
+          video.addEventListener('error', () => {
+            loadedAssets++;
+            updateProgress();
+          }, { once: true });
+        }
+      });
+      
+      // Fallback: hide loader after max time (10 seconds)
+      setTimeout(() => {
+        if (!loadingScreen.classList.contains('hidden')) {
+          progressBar.style.width = '100%';
+          loadingPercentage.textContent = '100%';
+          setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+            document.body.classList.remove('loading');
+            setTimeout(() => {
+              loadingScreen.style.display = 'none';
+            }, 500);
+          }, 300);
+        }
+      }, 10000);
+      
+      // Initialize body with loading class
+      document.body.classList.add('loading');
+    })();
+    
+    // Animate hero text on load (fade-in up)
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fix video autoplay on iOS devices
+      const heroVideo = document.querySelector('.hero-video');
+      if (heroVideo) {
+        // Force attributes for iOS compatibility
+        heroVideo.setAttribute('playsinline', '');
+        heroVideo.setAttribute('webkit-playsinline', '');
+        heroVideo.setAttribute('x-webkit-airplay', 'allow');
+        heroVideo.setAttribute('loop', '');
+        heroVideo.muted = true;
+        heroVideo.autoplay = true;
+        heroVideo.loop = true;
+        
+        // Function to attempt video play
+        function attemptPlay() {
+          const playPromise = heroVideo.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(error => {
+              // Auto-play was prevented
+              console.log('Video autoplay prevented, will play on user interaction');
+            });
+          }
+        }
+        
+        // Try to play immediately
+        attemptPlay();
+        
+        // Try to play when video metadata is loaded
+        heroVideo.addEventListener('loadedmetadata', attemptPlay);
+        heroVideo.addEventListener('canplay', attemptPlay);
+        heroVideo.addEventListener('loadeddata', attemptPlay);
+        
+        // Play on first user interaction (iOS requirement)
+        const playOnInteraction = function() {
+          attemptPlay();
+          document.removeEventListener('touchstart', playOnInteraction);
+          document.removeEventListener('click', playOnInteraction);
+          document.removeEventListener('scroll', playOnInteraction);
+        };
+        document.addEventListener('touchstart', playOnInteraction, { once: true, passive: true });
+        document.addEventListener('click', playOnInteraction, { once: true });
+        window.addEventListener('scroll', playOnInteraction, { once: true, passive: true });
+        
+        // Ensure video loops endlessly - restart if it ends (fallback)
+        heroVideo.addEventListener('ended', function() {
+          this.currentTime = 0;
+          this.play().catch(error => {
+            console.log('Video restart prevented');
+          });
+        });
+      }
+      
+      setTimeout(function() {
+        const heroContent = document.getElementById('hero-content');
+        if (heroContent) {
+          heroContent.classList.add('visible');
+          heroContent.style.opacity = '1';
+          heroContent.style.transform = 'translateY(0)';
+        }
+      }, 200);
+      
+      // Hero header overlay scroll behavior
+      const heroHeader = document.getElementById('hero-header-overlay');
+      
+      function updateHeroHeader() {
+        const scrollY = window.scrollY;
+        
+        if (scrollY > 50) {
+          heroHeader.classList.add('visible');
+        } else {
+          heroHeader.classList.remove('visible');
+        }
+      }
+      
+      // Use throttled scroll handler
+      let scrollTimeout;
+      window.addEventListener('scroll', function() {
+        if (scrollTimeout) {
+          window.cancelAnimationFrame(scrollTimeout);
+        }
+        scrollTimeout = window.requestAnimationFrame(updateHeroHeader);
+      }, { passive: true });
+      
+      window.addEventListener('resize', updateHeroHeader);
+      updateHeroHeader();
+      
+      // Video background doesn't need parallax effect
+      
+      // Mobile hero dropdown menu logic
+      const menuBtn = document.getElementById('hero-mobile-menu-btn');
+      const menuDropdown = document.getElementById('hero-mobile-dropdown');
+      
+      // Show menu button after user interaction
+      const showMenuButton = function() {
+        if (menuBtn) {
+          menuBtn.classList.add('visible');
+        }
+        document.removeEventListener('touchstart', showMenuButton);
+        document.removeEventListener('click', showMenuButton);
+        document.removeEventListener('scroll', showMenuButton);
+      };
+      
+      document.addEventListener('touchstart', showMenuButton, { once: true, passive: true });
+      document.addEventListener('click', showMenuButton, { once: true });
+      window.addEventListener('scroll', showMenuButton, { once: true, passive: true });
+      
+      if (menuBtn && menuDropdown) {
+        menuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          menuDropdown.classList.toggle('open');
+          menuBtn.classList.toggle('open');
+        });
+        
+        document.addEventListener('click', function(e) {
+          if (!menuDropdown.contains(e.target) && e.target !== menuBtn) {
+            menuDropdown.classList.remove('open');
+            menuBtn.classList.remove('open');
+          }
+        });
+      }
+      
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const href = this.getAttribute('href');
+          if (href !== '#' && href.length > 1) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              const offsetTop = target.offsetTop - 80;
+              window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+              });
+              
+              // Close mobile menu if open
+              if (menuDropdown && menuDropdown.classList.contains('open')) {
+                menuDropdown.classList.remove('open');
+                menuBtn.classList.remove('open');
+              }
+            }
+          }
+        });
+      });
+      
+      // Fade-in animation for service cards on scroll
+      const serviceCards = document.querySelectorAll('.service-card');
+      
+      // Show cards immediately on page load for both mobile and desktop
+      serviceCards.forEach(card => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      });
+      
+      // Helper function to initialize slider when visible
+      function initSliderOnVisible(sliderSelector) {
+        const slider = document.querySelector(sliderSelector);
+        if (!slider) return;
+        
+        const card = slider.closest('.service-card');
+        if (!card) return;
+        
+        const slides = slider.querySelectorAll('.slide');
+        const dots = slider.querySelectorAll('.dot');
+        let currentSlide = 0;
+        let slideInterval;
+        let hasStarted = false;
+        
+        function showSlide(index) {
+          slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            if (i === index) {
+              slide.classList.add('active');
+            }
+          });
+          
+          dots.forEach((dot, i) => {
+            dot.classList.remove('active');
+            if (i === index) {
+              dot.classList.add('active');
+            }
+          });
+        }
+        
+        function nextSlide() {
+          currentSlide = (currentSlide + 1) % slides.length;
+          showSlide(currentSlide);
+        }
+        
+        function startSlider() {
+          if (slideInterval) clearInterval(slideInterval);
+          slideInterval = setInterval(nextSlide, 3000);
+        }
+        
+        function stopSlider() {
+          if (slideInterval) clearInterval(slideInterval);
+        }
+        
+        // Initialize slider when card comes into view
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !hasStarted) {
+              hasStarted = true;
+              startSlider();
+            }
+          });
+        }, { threshold: 0.3 });
+        
+        observer.observe(card);
+        
+        // Pause on hover
+        slider.addEventListener('mouseenter', stopSlider);
+        slider.addEventListener('mouseleave', () => {
+          if (hasStarted) startSlider();
+        });
+        
+        // Dot click navigation
+        dots.forEach((dot, index) => {
+          dot.addEventListener('click', () => {
+            currentSlide = index;
+            showSlide(currentSlide);
+            stopSlider();
+            if (hasStarted) {
+              setTimeout(() => startSlider(), 500);
+            }
+          });
+        });
+      }
+      
+      // Initialize all sliders when visible
+      initSliderOnVisible('.mustang-slider');
+      
+      initSliderOnVisible('.corvette-slider');
+      
+      initSliderOnVisible('.chevelle-slider');
+      
+      initSliderOnVisible('.camaro-slider');
+      
+      // Scroll to Top Button
+      const scrollTopBtn = document.getElementById('scrollTop');
+      
+      if (scrollTopBtn) {
+        window.addEventListener('scroll', () => {
+          if (window.pageYOffset > 300) {
+            scrollTopBtn.classList.add('visible');
+          } else {
+            scrollTopBtn.classList.remove('visible');
+          }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+      }
+      
+      // Toy Car Animation on Scroll
+      const toyCar = document.getElementById('toy-car');
+      const servicesSection = document.getElementById('services');
+      let carAnimated = false;
+      
+      function checkCarAnimation() {
+        if (carAnimated) return;
+        
+        if (servicesSection) {
+          const rect = servicesSection.getBoundingClientRect();
+          const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+          
+          if (isVisible && toyCar) {
+            toyCar.classList.add('animate');
+            carAnimated = true;
+          }
+        }
+      }
+      
+      // Check on scroll
+      window.addEventListener('scroll', checkCarAnimation);
+      
+      // Check on load
+      checkCarAnimation();
+      
+    });
+  </script>
+  
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
