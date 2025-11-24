@@ -923,15 +923,27 @@ body {
 
     .character-container {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 0;
     }
 
     .character-section.alt .character-container {
         direction: ltr;
+        gap: 0;
+    }
+
+    .character-content {
+        order: 1;
     }
 
     .character-image {
-        min-height: 300px;
+        min-height: 200px;
+        order: 2;
+    }
+
+    .character-image .jason-image {
+        min-height: 200px;
+        max-height: 250px;
+        object-fit: cover;
     }
 
     .intro-section {
@@ -947,6 +959,11 @@ body {
     }
 
     .character-section + .character-section {
+        padding-top: 0 !important;
+        margin-top: -20px;
+    }
+
+    .character-section.alt {
         padding-top: 0 !important;
         margin-top: -20px;
     }
@@ -1097,7 +1114,7 @@ body {
     }
 
     .youtube-section {
-        padding: 60px 20px;
+        padding: 10px 20px 60px 20px;
     }
 
     .footer-grid {
@@ -1119,7 +1136,16 @@ body {
     }
     
     .footer {
-        padding-top: 40px;
+        padding-top: 0;
+    }
+    
+    .footer-grid {
+        margin-top: 0;
+    }
+    
+    .footer-section:first-child {
+        margin-top: 0;
+        padding-top: 0;
     }
 }
 
@@ -1319,6 +1345,48 @@ body {
 
 .service-card:hover .service-icon i {
     color: var(--accent-hover);
+    transform: scale(1.1);
+}
+
+.service-icon-image {
+    border-radius: 50% !important;
+    border: 2px solid rgba(255, 107, 0, 0.3) !important;
+    background: linear-gradient(135deg, rgba(255, 107, 0, 0.2), rgba(255, 140, 0, 0.1)) !important;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+}
+
+.service-krasa-image {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    border-radius: 50%;
+    filter: sepia(100%) saturate(200%) hue-rotate(0deg) brightness(1.1);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    margin: auto;
+}
+
+.service-card:hover .service-icon-image {
+    background: linear-gradient(135deg, rgba(255, 107, 0, 0.4), rgba(255, 140, 0, 0.2)) !important;
+    border-color: var(--accent) !important;
+}
+
+.service-virsbuve-image {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    border-radius: 50%;
+    filter: sepia(100%) saturate(200%) hue-rotate(0deg) brightness(1.1);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    margin: auto;
+}
+
+.service-card:hover .service-krasa-image {
     transform: scale(1.1);
 }
 
@@ -1592,6 +1660,8 @@ body {
 
     .youtube-header {
         padding: 0 20px;
+        margin-top: 0;
+        margin-bottom: 30px;
     }
 
     .youtube-slider-wrapper {
