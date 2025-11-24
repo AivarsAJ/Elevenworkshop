@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Auto Projekts - Perfection 86</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Orbitron:wght@600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Russo+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="./headerologpng.png">
+  <style>
+    :root {
+      --lightning-red: #FF0000;
+      --racing-red: #CC0000;
+      --accent: #FF0000;
+      --racing-yellow: #FFFFFF;
+      --racing-white: #FFFFFF;
+      --racing-black: #000000;
+      --racing-gray: #1a1a1a;
+      --white: #FFFFFF;
+      --overlay-dark: rgba(0, 0, 0, 0.5);
+      --transition: 0.25s cubic-bezier(.4,0,.2,1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background: #1a1a1a;
+      color: #fff;
+      overflow-x: hidden;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" fill="%23FF0000"/></svg>'), auto;
+      position: relative;
+    }
+    
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      width: 200px;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.15;
+    }
+    
+    body::before {
+      left: 0;
+      background: linear-gradient(90deg, rgba(255, 0, 0, 0.3) 0%, transparent 100%);
+      background-image: 
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(255, 0, 0, 0.05) 10px,
+          rgba(255, 0, 0, 0.05) 20px
+        );
+    }
+    
+    body::after {
+      right: 0;
+      background: linear-gradient(270deg, rgba(255, 0, 0, 0.3) 0%, transparent 100%);
+      background-image: 
+        repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 10px,
+          rgba(255, 0, 0, 0.05) 10px,
+          rgba(255, 0, 0, 0.05) 20px
+        );
+    }
+    
+    * {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" fill="%23FF0000"/></svg>'), auto;
+    }
+    
+    a, button, .order-btn, .back-btn, .color-swatch, .detail-image-container, .hero-mobile-menu-btn, .hero-header-nav a {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" fill="%23FF0000"/></svg>'), pointer;
+    }
+    
+    /* Hero Header Overlay - Always visible */
+    .hero-header-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      z-index: 1000;
+      background: #1a1a1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px 0;
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+      height: 72px;
+      pointer-events: auto;
+      opacity: 1;
+      visibility: visible;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+    }
+    
+    .hero-header-overlay.visible {
+      background: #1a1a1a;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+    }
+    
+    .hero-header-overlay .hero-header-logo {
+      margin-left: 0;
+      margin-top: 8px;
+      height: 80px;
+      width: auto;
+      max-width: 300px;
+      display: block;
+      transition: height 0.3s, max-width 0.3s;
+      position: relative;
+      filter: brightness(0) invert(1);
+    }
+    
+    .hero-header-overlay.visible .hero-header-logo {
+      filter: brightness(0) invert(1);
+    }
+    
+    .hero-header-overlay .hero-header-logo-nav {
+      display: none;
+    }
+    
+    .hero-header-nav {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      position: relative;
+      left: 0;
+      right: 0;
+    }
+    
+    .hero-header-nav a {
+      color: #fff;
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+      font-size: 1.15rem;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 0.3em 0.8em;
+      border-radius: 6px;
+      transition: background 0.18s, color 0.18s;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.32);
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .hero-header-nav a:hover, .hero-header-nav a:focus {
+      background: none;
+      color: #fff;
+      outline: none;
+    }
+    
+    .hero-header-overlay.visible .hero-header-nav a {
+      color: #ffffff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.32);
+    }
+    
+    .hero-header-overlay.visible .hero-header-nav a:hover {
+      color: var(--lightning-red);
+      background: none;
+    }
+    
+    .logo-placeholder {
+      width: 300px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.32);
+    }
+    
+    .logo-placeholder img {
+      width: auto;
+      height: 100%;
+      max-width: 150px;
+      max-height: 40px;
+      display: block;
+      filter: brightness(0) invert(1);
+      transition: filter 0.3s;
+    }
+    
+    .hero-header-overlay.visible .logo-placeholder img {
+      filter: brightness(0) invert(1);
+    }
+    
+    .hero-header-overlay.visible .logo-placeholder {
+      color: #ffffff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.32);
+    }
+    
+    /* Mobile Logo and Menu Button */
+    .hero-mobile-logo {
+      position: fixed;
+      top: 7.5px;
+      left: 18px;
+      z-index: 1001;
+      height: 65px;
+      width: auto;
+      max-width: 205px;
+      display: none;
+      filter: brightness(0) invert(1);
+      object-fit: contain;
+    }
+    
+    .hero-mobile-menu-btn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 1001;
+      height: 38px;
+      width: 38px;
+      background: transparent;
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.3s;
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .hero-mobile-menu-btn.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .hero-mobile-menu-btn:active,
+    .hero-mobile-menu-btn.open {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    
+    .hero-mobile-dropdown {
+      display: none;
+      position: fixed;
+      top: 62px;
+      right: 18px;
+      z-index: 1002;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(34,34,34,0.13);
+      padding: 0.7rem 0.5rem;
+      min-width: 140px;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .hero-mobile-dropdown.open {
+      display: flex;
+    }
+    
+    .hero-mobile-dropdown a {
+      color: #222;
+      text-decoration: none;
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      padding: 0.4em 0.7em;
+      border-radius: 6px;
+      transition: background 0.18s, color 0.18s;
+      display: block;
+      background: transparent;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .hero-mobile-dropdown a:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    
+    /* Main Container */
+    .car-details-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 100px 20px 60px;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+      transform: translateX(15px);
+    }
+    
+    /* Single Card - Car Information and Images */
+    .car-info-panel {
+      background: linear-gradient(135deg, #242424 0%, #1a1a1a 100%);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    
+    .car-info-content {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .car-section-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 40px;
+      border: 3px solid var(--lightning-red);
+      border-radius: 50px;
+      padding: 20px 40px;
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), inset 0 0 20px rgba(255, 0, 0, 0.1);
+      background: rgba(255, 0, 0, 0.05);
+      backdrop-filter: blur(5px);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .car-section-title::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 0, 0, 0.1) 0%, transparent 70%);
+      animation: rotateGlow 3s linear infinite;
+      pointer-events: none;
+    }
+    
+    @keyframes rotateGlow {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
+    .car-section-title > * {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .car-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--lightning-red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+    }
+    
+    .car-icon i {
+      font-size: 24px;
+      color: #fff;
+    }
+    
+    .car-name {
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .car-description {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #cccccc;
+      margin-bottom: 25px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .section-header {
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+    
+    /* Performance Stats */
+    .stats-container {
+      margin-bottom: 25px;
+    }
+    
+    .stat-item {
+      margin-bottom: 15px;
+    }
+    
+    .stat-label {
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .stat-bar-container {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .stat-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--lightning-red) 0%, #ff3333 100%);
+      border-radius: 999px;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+      transition: width 0.8s ease;
+    }
+    
+    /* Order Button */
+    .order-btn {
+      width: 100%;
+      padding: 14px 0;
+      background: var(--lightning-red);
+      color: #fff;
+      border: 2px solid var(--lightning-red);
+      border-radius: 999px;
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .order-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.5s;
+    }
+    
+    .order-btn:hover::before {
+      left: 100%;
+    }
+    
+    .order-btn:hover {
+      background: var(--racing-red);
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 50px rgba(255, 255, 255, 0.4);
+      transform: scale(1.02);
+    }
+    
+    /* Car Images Section (now inside the main card) */
+    .car-images-panel {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .main-image-container {
+      width: 100%;
+      height: 350px;
+      margin-bottom: 15px;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+      background: #0a0a0a;
+      z-index: 2;
+    }
+    
+    .main-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease, opacity 0.3s ease;
+    }
+    
+    .main-image-container:hover .main-image {
+      transform: scale(1.05);
+    }
+    
+    .detail-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    
+    .detail-image-container {
+      width: 100%;
+      height: 170px;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+      background: #0a0a0a;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+    
+    .detail-image-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+    }
+    
+    .detail-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .detail-image-container:hover .detail-image {
+      transform: scale(1.1);
+    }
+    
+    /* Detailed Description Section */
+    .detailed-description-section {
+      max-width: 1400px;
+      margin: 80px auto 0;
+      padding: 0 20px 0;
+      position: relative;
+      z-index: 1;
+      transform: translateX(15px);
+    }
+    
+    .description-section-title {
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      text-align: center;
+      margin-bottom: 40px;
+      margin-top: 0;
+      padding-top: 0;
+      text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+    }
+    
+    .description-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .description-content:last-of-type {
+      margin-bottom: 0;
+    }
+    
+    .description-content.reverse {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .description-content.reverse .description-text {
+      order: 2;
+    }
+    
+    .description-content.reverse .description-image {
+      order: 1;
+    }
+    
+    .description-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .description-text h3 {
+      font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+    
+    .description-text p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #cccccc;
+    }
+    
+    .description-image {
+      width: 100%;
+      height: 400px;
+      border-radius: 15px;
+      overflow: hidden;
+      background: #0a0a0a;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .description-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .description-image:hover img {
+      transform: scale(1.05);
+    }
+    
+    /* Responsive Design */
+     @media (max-width: 1024px) {
+       .car-info-panel {
+         grid-template-columns: 1fr;
+         gap: 30px;
+       }
+       
+       .car-section-title {
+         margin-bottom: 30px;
+         padding: 15px 30px;
+         border-radius: 40px;
+       }
+       
+       .car-name {
+         font-size: 2.5rem;
+       }
+     }
+    
+     @media (max-width: 900px) {
+       body::before,
+       body::after {
+         width: 100px;
+         opacity: 0.1;
+       }
+       
+       .hero-header-nav {
+         display: none !important;
+       }
+       
+       .hero-header-overlay {
+         display: none !important;
+       }
+       
+       .hero-mobile-logo {
+         display: block !important;
+       }
+       
+       .hero-mobile-menu-btn {
+         display: flex !important;
+         opacity: 1 !important;
+         pointer-events: all !important;
+       }
+       
+       /* Mobile Header Background */
+       .hero-mobile-header-bg {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 80px;
+         background: #1a1a1a;
+         z-index: 1000;
+         box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+       }
+     }
+     
+     @media (max-width: 768px) {
+       body::before,
+       body::after {
+         width: 50px;
+         opacity: 0.08;
+       }
+     }
+     
+     @media (max-width: 480px) {
+       body::before,
+       body::after {
+         display: none;
+       }
+     }
+     
+     @media (max-width: 768px) {
+       .car-details-container {
+         padding: 100px 15px 40px;
+         transform: translateX(0);
+       }
+       
+       .detailed-description-section {
+         transform: translateX(0);
+       }
+       
+       .youtube-videos-container {
+         transform: translateX(0);
+       }
+       
+       .hero-header-overlay.visible {
+         background: #1a1a1a !important;
+       }
+       
+       .car-info-panel {
+         padding: 25px;
+         grid-template-columns: 1fr;
+         gap: 25px;
+       }
+       
+       .car-info-panel .car-images-panel {
+         order: -1;
+       }
+       
+       .car-info-panel .car-info-content {
+         order: 1;
+       }
+       
+       .car-section-title {
+         margin-bottom: 25px;
+         gap: 12px;
+         padding: 15px 25px;
+         border-radius: 35px;
+       }
+       
+       .car-icon {
+         width: 40px;
+         height: 40px;
+       }
+       
+       .car-icon i {
+         font-size: 20px;
+       }
+       
+       .car-name {
+         font-size: 2rem;
+         letter-spacing: 2px;
+       }
+       
+       .car-description {
+         font-size: 1rem;
+       }
+       
+       .main-image-container {
+         height: 300px;
+       }
+       
+       .detail-image-container {
+         height: 150px;
+       }
+       
+       .description-section-title {
+         font-size: 2rem;
+         letter-spacing: 2px;
+         margin-bottom: 30px;
+       }
+       
+       .description-content {
+         grid-template-columns: 1fr;
+         gap: 25px;
+       }
+       
+       .description-content.reverse .description-text {
+         order: 1;
+       }
+       
+       .description-content.reverse .description-image {
+         order: 2;
+       }
+       
+       .description-text h3 {
+         font-size: 1.5rem;
+       }
+       
+       .description-text p {
+         font-size: 1rem;
+       }
+       
+       .description-image {
+         height: 300px;
+       }
+     }
+    
+     @media (max-width: 480px) {
+       .car-section-title {
+         margin-bottom: 20px;
+         gap: 10px;
+         padding: 12px 20px;
+         border-radius: 30px;
+       }
+       
+       .car-icon {
+         width: 35px;
+         height: 35px;
+       }
+       
+       .car-icon i {
+         font-size: 18px;
+       }
+       
+       .car-name {
+         font-size: 1.5rem;
+         letter-spacing: 2px;
+       }
+     }
+     
+     /* Footer Styles */
+     .footer {
+       background: #0a0a0a;
+       color: #fff;
+       padding: 50px 20px 40px;
+       margin-top: 0;
+       position: relative;
+       z-index: 1;
+     }
+     
+     .footer-container {
+       max-width: 1200px;
+       margin: 0 auto;
+     }
+     
+     .footer-grid {
+       display: grid;
+       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+       gap: 50px;
+       margin-bottom: 50px;
+     }
+     
+     .footer-section {
+       display: flex;
+       flex-direction: column;
+     }
+     
+     .footer-logo {
+       height: 60px;
+       width: auto;
+       max-width: 200px;
+       margin-top: 20px;
+       margin-left: -35px;
+       filter: brightness(0) invert(1);
+       display: block;
+       object-fit: contain;
+     }
+     
+     .footer-title {
+       font-size: clamp(1.5rem, 3vw, 2rem);
+       font-weight: 700;
+       margin-bottom: 15px;
+       text-transform: uppercase;
+       letter-spacing: 2px;
+       color: #fff;
+       font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+     }
+     
+     .footer-text {
+       color: #cccccc;
+       line-height: 1.8;
+       font-size: clamp(0.9rem, 1.5vw, 1rem);
+       font-family: 'Inter', Arial, sans-serif;
+     }
+     
+     .footer-section-title {
+       font-size: clamp(1rem, 2vw, 1.2rem);
+       font-weight: 600;
+       margin-bottom: 20px;
+       text-transform: uppercase;
+       letter-spacing: 1px;
+       color: #ffffff;
+       font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+     }
+     
+     .footer-contact {
+       display: flex;
+       flex-direction: column;
+       gap: 15px;
+     }
+     
+     .footer-contact-item {
+       display: flex;
+       align-items: flex-start;
+       gap: 12px;
+       color: #cccccc;
+       font-size: clamp(0.85rem, 1.3vw, 0.95rem);
+       line-height: 1.6;
+       font-family: 'Inter', Arial, sans-serif;
+     }
+     
+     .footer-contact-item i {
+       font-size: 1.1rem;
+       color: #ffffff;
+       width: 20px;
+       text-align: center;
+       margin-top: 2px;
+       flex-shrink: 0;
+     }
+     
+     .footer-contact-item a {
+       color: #cccccc;
+       text-decoration: none;
+       transition: color 0.3s ease;
+     }
+     
+     .footer-contact-item a:hover {
+       color: var(--lightning-red);
+     }
+     
+     .footer-bottom {
+       text-align: center;
+       padding-top: 30px;
+       border-top: 1px solid rgba(255, 255, 255, 0.1);
+       color: #cccccc;
+       font-size: clamp(0.75rem, 1.2vw, 0.85rem);
+       font-family: 'Inter', Arial, sans-serif;
+     }
+     
+     .footer-bottom p {
+       color: #cccccc;
+       margin: 0;
+     }
+     
+     .footer-creator-text {
+       margin-top: 15px;
+       font-size: 0.85rem;
+       color: #999;
+       font-family: 'Inter', Arial, sans-serif;
+       line-height: 1.6;
+     }
+     
+     .footer-creator-text-mobile {
+       display: none;
+     }
+     
+     @media (max-width: 600px) {
+       .footer {
+         padding: 30px 20px 30px;
+       }
+       
+       .footer-grid {
+         grid-template-columns: 1fr;
+         gap: 40px;
+         text-align: center;
+         margin-bottom: 30px;
+       }
+       
+       .footer-section {
+         align-items: center;
+         text-align: center;
+       }
+       
+       .footer-title {
+         margin-top: 0;
+       }
+       
+       .footer-contact {
+         align-items: center;
+       }
+       
+       .footer-logo {
+         margin-left: auto;
+         margin-right: auto;
+       }
+       
+       .footer-creator-text {
+         display: none;
+       }
+       
+       .footer-creator-text-mobile {
+         display: block;
+         margin-top: 25px;
+         font-size: 0.85rem;
+         color: #999;
+         font-family: 'Inter', Arial, sans-serif;
+         line-height: 1.6;
+         text-align: center;
+       }
+     }
+     
+     @media (max-width: 480px) {
+       .footer {
+         padding: 25px 15px 25px;
+       }
+       
+       .footer-grid {
+         gap: 30px;
+         text-align: center;
+         margin-bottom: 30px;
+       }
+       
+       .footer-section {
+         align-items: center;
+         text-align: center;
+       }
+       
+       .footer-title {
+         margin-top: 0;
+       }
+       
+       .footer-logo {
+         margin-left: auto;
+         margin-right: auto;
+       }
+       
+       .footer-creator-text {
+         display: none;
+       }
+       
+       .footer-creator-text-mobile {
+         display: block;
+         margin-top: 25px;
+         font-size: 0.85rem;
+         color: #999;
+         font-family: 'Inter', Arial, sans-serif;
+         line-height: 1.6;
+         text-align: center;
+       }
+     }
+     
+     /* Aivis Logo - Bottom Left */
+     .aivis-logo {
+       position: fixed;
+       bottom: 0;
+       left: -50px;
+       z-index: 1;
+       height: auto;
+       width: auto;
+       max-width: 1600px;
+       max-height: 1200px;
+       width: 1600px;
+       height: auto;
+       object-fit: contain;
+       object-position: left bottom;
+       pointer-events: none;
+       display: block;
+       margin: 0;
+       padding: 0;
+       opacity: 1;
+       visibility: visible;
+       transform: translateX(0);
+       right: auto;
+       margin-right: auto;
+       margin-left: 0;
+     }
+     
+     @media (max-width: 768px) {
+       .aivis-logo {
+         max-width: 1200px;
+         max-height: 960px;
+         width: 1200px;
+         left: -40px;
+       }
+     }
+     
+     @media (max-width: 480px) {
+       .aivis-logo {
+         max-width: 960px;
+         max-height: 800px;
+         width: 960px;
+         left: -30px;
+       }
+     }
+     
+     /* YouTube Videos Section */
+     .youtube-videos-section {
+       background: #1a1a1a;
+       padding: 60px 20px;
+       margin: 0;
+       position: relative;
+       z-index: 1;
+     }
+     
+     .youtube-videos-title,
+     .youtube-video-wrapper {
+       position: relative;
+       z-index: 2;
+     }
+     
+     .youtube-videos-container {
+       max-width: 1400px;
+       margin: 0 auto;
+       transform: translateX(15px);
+     }
+     
+     .youtube-videos-title {
+       font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+       font-size: 3rem;
+       font-weight: 900;
+       text-align: center;
+       color: #ffffff;
+       margin: 0 0 50px 0;
+       padding: 0;
+       letter-spacing: 8px;
+       text-transform: uppercase;
+       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       gap: 20px;
+     }
+     
+     .youtube-logo {
+       width: 45px;
+       height: 35px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       color: #FF0000;
+       font-size: 2.2rem;
+       filter: drop-shadow(0 2px 10px rgba(255, 0, 0, 0.5));
+       position: relative;
+       order: 2;
+       background: #FF0000;
+       border-radius: 8px;
+     }
+     
+     .youtube-logo::after {
+       content: '';
+       position: absolute;
+       width: 0;
+       height: 0;
+       border-left: 14px solid #ffffff;
+       border-top: 9px solid transparent;
+       border-bottom: 9px solid transparent;
+       margin-left: 3px;
+     }
+     
+     .youtube-videos-grid {
+       display: grid;
+       grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+       gap: 30px;
+       margin: 0;
+     }
+     
+     .youtube-video-wrapper {
+       position: relative;
+       width: 100%;
+       padding-bottom: 56.25%; /* 16:9 aspect ratio */
+       height: 0;
+       overflow: hidden;
+       border-radius: 15px;
+       border: 2px solid rgba(255, 255, 255, 0.2);
+       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+       transition: all 0.3s ease;
+       background: #0a0a0a;
+     }
+     
+     .youtube-video-wrapper:hover {
+       border-color: var(--lightning-red);
+       box-shadow: 0 8px 32px rgba(255, 0, 0, 0.5);
+       transform: translateY(-5px);
+     }
+     
+     .youtube-video-wrapper iframe {
+       position: absolute;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       border: none;
+       border-radius: 15px;
+     }
+     
+     @media (max-width: 768px) {
+       .youtube-videos-section {
+         padding: 40px 15px;
+       }
+       
+       .youtube-videos-title {
+         font-size: 2rem;
+         letter-spacing: 4px;
+         margin-bottom: 30px;
+         gap: 15px;
+       }
+       
+       .youtube-logo {
+         width: 40px;
+         height: 30px;
+         font-size: 2rem;
+       }
+       
+       .youtube-logo::after {
+         border-left: 12px solid #ffffff;
+         border-top: 7px solid transparent;
+         border-bottom: 7px solid transparent;
+         margin-left: 2px;
+       }
+       
+       .youtube-videos-grid {
+         grid-template-columns: 1fr;
+         gap: 20px;
+       }
+     }
+     
+     @media (max-width: 480px) {
+       .youtube-videos-section {
+         padding: 30px 15px;
+       }
+       
+       .youtube-videos-title {
+         font-size: 1.5rem;
+         letter-spacing: 3px;
+         margin-bottom: 25px;
+         gap: 12px;
+       }
+       
+       .youtube-logo {
+         width: 35px;
+         height: 28px;
+         font-size: 1.8rem;
+       }
+       
+       .youtube-logo::after {
+         border-left: 10px solid #ffffff;
+         border-top: 6px solid transparent;
+         border-bottom: 6px solid transparent;
+         margin-left: 2px;
+       }
+       
+       .youtube-videos-grid {
+         gap: 15px;
+       }
+     }
+     
+     /* Partners Section */
+     .partners-section {
+       padding: 0 !important;
+       padding-bottom: 0 !important;
+       padding-top: 0 !important;
+       background: #1a1a1a;
+       position: relative;
+       overflow: hidden;
+       width: 100%;
+       margin: 0 !important;
+       margin-top: 0 !important;
+       margin-bottom: 0 !important;
+       line-height: 0;
+       z-index: 1;
+     }
+     
+     .partners-container {
+       max-width: 100%;
+       margin: 0 !important;
+       margin-bottom: 0 !important;
+       padding: 0 !important;
+       padding-bottom: 0 !important;
+       position: relative;
+       width: 100%;
+       line-height: 0;
+     }
+     
+     .partners-title {
+       font-family: 'Bebas Neue', 'Russo One', 'Orbitron', Arial, sans-serif;
+       font-size: 3rem;
+       font-weight: 900;
+       text-align: center;
+       color: #ffffff;
+       margin: 0 !important;
+       margin-top: 15px !important;
+       margin-bottom: 0 !important;
+       padding: 0 20px !important;
+       padding-bottom: 0 !important;
+       letter-spacing: 8px;
+       text-transform: uppercase;
+       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+       line-height: 1.2;
+     }
+     
+     .partners-slider {
+       width: 100%;
+       overflow: hidden;
+       position: relative;
+       padding: 0 !important;
+       padding-bottom: 0 !important;
+       margin: 0 !important;
+       margin-bottom: 0 !important;
+       line-height: 0;
+     }
+     
+     .partners-track {
+       display: flex;
+       gap: 60px;
+       animation: slidePartners 30s linear infinite;
+       width: max-content;
+       margin: 0 !important;
+       margin-bottom: 0 !important;
+       padding: 0 !important;
+       padding-bottom: 0 !important;
+       line-height: 0;
+     }
+     
+     .partners-track:hover {
+       animation-play-state: running;
+     }
+     
+     @keyframes slidePartners {
+       0% {
+         transform: translateX(0);
+       }
+       100% {
+         transform: translateX(-50%);
+       }
+     }
+     
+     .partner-item {
+       flex-shrink: 0;
+       width: 400px;
+       height: auto;
+       min-height: 0;
+       max-height: 240px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       background: transparent;
+       border-radius: 0;
+       padding: 0 !important;
+       padding-bottom: 0 !important;
+       margin: 0 !important;
+       margin-bottom: 0 !important;
+       transition: all 0.3s ease;
+       border: none;
+       line-height: 0;
+     }
+     
+     .partner-item:hover {
+       background: transparent;
+       border-color: transparent;
+       transform: scale(1.05);
+       box-shadow: none;
+     }
+     
+     .partner-item img {
+       max-width: 100%;
+       max-height: 240px;
+       width: auto;
+       height: auto;
+       object-fit: contain;
+       filter: brightness(0.9);
+       transition: filter 0.3s ease, transform 0.3s ease;
+       margin: 0 !important;
+       margin-bottom: 0 !important;
+       padding: 0 !important;
+       padding-bottom: 0 !important;
+       display: block;
+       vertical-align: bottom;
+       line-height: 0;
+     }
+     
+     .partner-item:hover img {
+       filter: brightness(1.1);
+       transform: scale(1.1);
+     }
+     
+     @media (max-width: 768px) {
+       .partners-section {
+         padding: 0;
+       }
+       
+       .partners-title {
+         font-size: 2rem;
+         letter-spacing: 4px;
+         margin-bottom: 2rem;
+         margin-top: 5px !important;
+       }
+       
+       .partner-item {
+         width: 300px;
+         height: 180px;
+         padding: 0;
+       }
+       
+       .partners-track {
+         gap: 40px;
+         animation-duration: 25s;
+       }
+     }
+     
+     @media (max-width: 480px) {
+       .partners-section {
+         padding: 0;
+       }
+       
+       .partners-title {
+         font-size: 1.5rem;
+         letter-spacing: 3px;
+         margin-bottom: 1.5rem;
+         margin-top: 5px !important;
+       }
+       
+       .partner-item {
+         width: 240px;
+         height: 140px;
+         padding: 0;
+       }
+       
+       .partners-track {
+         gap: 30px;
+         animation-duration: 20s;
+       }
+     }
+  </style>
+</head>
+<body>
+  <!-- Hero Header Overlay - Transparent -->
+  <div class="hero-header-overlay" id="hero-header-overlay">
+    <nav class="hero-header-nav">
+      <a href="./index.html">SĀKUMS</a>
+      <a href="./under-construction.html">PAKALPOJUMI</a>
+      <a href="./under-construction.html">PAR MUMS</a>
+      <a href="./under-construction.html">KONTAKTI</a>
+    </nav>
+  </div>
+
+  <!-- Mobile Header Background -->
+  <div class="hero-mobile-header-bg"></div>
+  
+  <!-- Mobile Logo and Menu -->
+  <img src="./headerologpng.png" alt="Perfection86 Logo" class="hero-mobile-logo">
+  <button class="hero-mobile-menu-btn" id="hero-mobile-menu-btn" aria-label="Open menu">☰</button>
+  <div class="hero-mobile-dropdown" id="hero-mobile-dropdown">
+    <a href="./index.html">Sākums</a>
+    <a href="./under-construction.html">Pakalpojumi</a>
+    <a href="./under-construction.html">Par mums</a>
+    <a href="./under-construction.html">Kontakti</a>
+  </div>
+
+  <!-- Main Container -->
+  <div class="car-details-container">
+    <!-- Car Section Title -->
+    <div class="car-section-title">
+      <div class="car-icon">
+        <i class="fas fa-car"></i>
+      </div>
+      <h1 class="car-name" id="carName">NISSAN R34 SKYLINE</h1>
+    </div>
+    
+    <!-- Single Card - Car Information and Images -->
+    <div class="car-info-panel">
+      <div class="car-info-content">
+        <p class="car-description" id="carDescription">
+          Pilnīga virsbūves pārkrāsošana un atjaunošana ietvēra darbu pilnā spektrā – sākām ar rūpīgu virsbūves sagatavošanu, noņemot veco krāsu, izlīdzinot visas virsmas un novēršot visus defektus. Pēc tam tika veikta profesionāla gruntēšana un augstas kvalitātes krāsošana ar mūsdienīgākajiem materiāliem, nodrošinot vizuāli nevainojamu un ilgstoši izturīgu rezultātu visā virsbūvē.
+        </p>
+        
+      <h2 class="section-header">Projekta parametri</h2>
+        <div class="stats-container">
+          <div class="stat-item">
+            <div class="stat-label">Krāsošanas kvalitāte</div>
+            <div class="stat-bar-container">
+              <div class="stat-bar" style="width: 95%;"></div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Virsbūves sagatavošana bodykita uzstādīšanai</div>
+            <div class="stat-bar-container">
+              <div class="stat-bar" style="width: 100%;"></div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Detalizētība</div>
+            <div class="stat-bar-container">
+              <div class="stat-bar" style="width: 90%;"></div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Vispārējā kvalitāte</div>
+            <div class="stat-bar-container">
+              <div class="stat-bar" style="width: 98%;"></div>
+            </div>
+          </div>
+        </div>
+        
+        <button class="order-btn" onclick="window.location.href='./under-construction.html'">
+          Pilnā pārbuve
+        </button>
+      </div>
+      
+      <!-- Car Images Section -->
+      <div class="car-images-panel">
+        <div class="main-image-container">
+          <img src="./1.jpg" alt="Car Main View" class="main-image" id="mainImage">
+        </div>
+        <div class="detail-images">
+          <div class="detail-image-container" onclick="changeMainImage('./2.jpg')">
+            <img src="./2.jpg" alt="Car Detail 1" class="detail-image">
+          </div>
+          <div class="detail-image-container" onclick="changeMainImage('./3.jpg')">
+            <img src="./3.jpg" alt="Car Detail 2" class="detail-image">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Detailed Description Section -->
+    <div class="detailed-description-section">
+      <h2 class="description-section-title">Detalizēts apraksts</h2>
+      
+      <div class="description-content">
+        <div class="description-text">
+          <h3>Virsbūves sagatavošana bodykita uzstādīšanai</h3>
+          <p>Mēs rūpīgi sagatavojām automašīnas virsbūvi pirms bodykita uzstādīšanas, lai nodrošinātu perfektu rezultātu. Vispirms tika veikta virsmas pārbaude un demontēti nepieciešamie virsbūves elementi. Pēc tam auto tika attīrīts un sagatavots – iztaisnotas nelīdzenas vietas, noslīpētas virsmas un nepieciešamības gadījumā veikti nelieli remontdarbi.</p>
+        </div>
+        <div class="description-image">
+          <img src="./1.jpg" alt="Virsbūves sagatavošana bodykita uzstādīšanai">
+        </div>
+      </div>
+      
+      <div class="description-content reverse">
+        <div class="description-text">
+          <h3>Auto sagatavošana pilnai krāsošanai</h3>
+          <p>Pēc bodykita uzstādīšanas mēs sagatavojām visu automašīnu krāsošanai. Tika veikta pilna virsbūves noslīpēšana, izlīdzināta pāreja starp jaunajām detaļām un sākotnējo virsmu, kā arī pārbaudītas visas līnijas un spraugas. Vajadzības gadījumā tika veikta papildus špaktelēšana un virsmas korekcijas, lai nodrošinātu maksimāli gludu un precīzu pamatu. Kad visas detaļas bija sagatavotas, auto tika attaukots, nogruntēts un salikts tā, lai virsbūve būtu gatava krāsošanas procesam un iegūtu perfektu, kvalitatīvu un vienmērīgu pārklājumu.</p>
+        </div>
+        <div class="description-image">
+          <img src="./2.jpg" alt="Auto sagatavošana pilnai krāsošanai">
+        </div>
+      </div>
+      
+      <div class="description-content">
+        <div class="description-text">
+          <h3>Krāsošanas process un apdare</h3>
+          <p>Kad virsbūve bija pilnībā sagatavota, sākās krāsošanas process. Automobilis tika ievietots krāsošanas kamerā, kur vispirms tika uzmanīgi uzklāta bāzes kārta, nodrošinot vienmērīgu un gludu segumu visām detaļām. Pēc tam sekoja izvēlētās krāsas slāņi, kas tika klāti vairākās kārtās, lai panāktu dziļu un kvalitatīvu toni. Pēc krāsas nožūšanas tika uzklāts lakas pārklājums, kas piešķīra virsbūvei spīdumu un papildu aizsardzību. Kad auto bija izžuvis, tas tika izņemts no kameras, pārbaudīts un nepieciešamības gadījumā nopulēts, lai panāktu perfekti gludu un profesionālu izskatu.</p>
+        </div>
+        <div class="description-image">
+          <img src="./3.jpg" alt="Krāsošanas process un apdare">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- YouTube Videos Section -->
+  <section class="youtube-videos-section">
+    <div class="youtube-videos-container">
+      <h2 class="youtube-videos-title">
+        VIDEO MATERIĀLI
+        <i class="fab fa-youtube youtube-logo"></i>
+      </h2>
+      <div class="youtube-videos-grid">
+        <div class="youtube-video-wrapper">
+          <iframe 
+            src="https://www.youtube-nocookie.com/embed/u9YcNNFj6u8?rel=0&modestbranding=1" 
+            title="Car Video 1" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="youtube-video-wrapper">
+          <iframe 
+            src="https://www.youtube-nocookie.com/embed/k7Lx-yI5n_o?rel=0&modestbranding=1" 
+            title="Car Video 2" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners Section -->
+  <section class="partners-section">
+    <div class="partners-container">
+      <h2 class="partners-title">MŪSU SADARBĪBAS PARTNERI</h2>
+      <div class="partners-slider">
+        <div class="partners-track">
+          <div class="partner-item">
+            <img src="./partneri/baltalogo.webp" alt="Balta Logo">
+          </div>
+          <div class="partner-item">
+            <img src="./partneri/btalogo.webp" alt="BTA Logo">
+          </div>
+          <div class="partner-item">
+            <img src="./partneri/dtslogo.webp" alt="DTS Logo">
+          </div>
+          <div class="partner-item">
+            <img src="./partneri/ergologo.webp" alt="Ergo Logo">
+          </div>
+          <div class="partner-item">
+            <img src="./partneri/gjeslogo.webp" alt="GJES Logo">
+          </div>
+          <div class="partner-item">
+            <img src="./partneri/iflogo.webp" alt="IF Logo">
+          </div>
+          <div class="partner-item">
+            <img src="./partneri/ragslogo.webp" alt="RAGS Logo">
+          </div>
+          <div class="partner-item">
+            <img src="./partneri/tehnicolorlogo.webp" alt="Technicolor Logo">
+          </div>
+          <!-- Duplicate for seamless loop -->
+          <div class="partner-item">
+            <img src="./partneri/baltalogo.webp" alt="Balta Logo">
+          </div>
+          <div class="partner-item">
+            <img src="./partneri/btalogo.webp" alt="BTA Logo">
+          </div>
+          <div class="partner-item">
+            <img src="./partneri/dtslogo.webp" alt="DTS Logo">
+          </div>
+          <div class="partner-item">
+            <img src="./partneri/ergologo.webp" alt="Ergo Logo">
+          </div>
+          <div class="partner-item">
+            <img src="./partneri/gjeslogo.webp" alt="GJES Logo">
+          </div>
+          <div class="partner-item">
+            <img src="./partneri/iflogo.webp" alt="IF Logo">
+          </div>
+          <div class="partner-item">
+            <img src="./partneri/ragslogo.webp" alt="RAGS Logo">
+          </div>
+          <div class="partner-item">
+            <img src="./partneri/tehnicolorlogo.webp" alt="Technicolor Logo">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aivis Logo -->
+  <img src="./aivis.png" alt="Aivis Logo" class="aivis-logo">
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h3 class="footer-title">PERFECTION 86</h3>
+          <img src="./perfection86.webp" alt="Perfection 86 Logo" class="footer-logo">
+          <p class="footer-text">Mašīnu restaurācijas un pārkrāsošanas pakalpojumi</p>
+          <p class="footer-creator-text">Mājas lapu izstrādāja SIA A&J Marketing group</p>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-section-title">KONTAKTI</h4>
+          <div class="footer-contact">
+            <p class="footer-contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Kungu iela 87a, Liepāja, LV-3401</span>
+            </p>
+            <p class="footer-contact-item">
+              <i class="fas fa-phone"></i>
+              <a href="./under-construction.html">+371 24 987 686</a>
+            </p>
+            <p class="footer-contact-item">
+              <i class="fas fa-envelope"></i>
+              <a href="./under-construction.html">sveilisaivis@gmail.com</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 SA Autoserviss. Visas tiesības aizsargātas.</p>
+        <p class="footer-creator-text-mobile">Mājas lapu izstrādāja SIA A&J Marketing group</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Change main image when clicking detail images
+    function changeMainImage(src) {
+      const mainImage = document.getElementById('mainImage');
+      mainImage.style.opacity = '0';
+      setTimeout(() => {
+        mainImage.src = src;
+        mainImage.style.opacity = '1';
+      }, 200);
+    }
+    
+    // Animate stat bars on load
+    document.addEventListener('DOMContentLoaded', function() {
+      const statBars = document.querySelectorAll('.stat-bar');
+      statBars.forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(() => {
+          bar.style.width = width;
+        }, 300);
+      });
+      
+      // Header scroll functionality
+      const heroHeader = document.getElementById('hero-header-overlay');
+      
+      function updateHeroHeader() {
+        const scrollY = window.scrollY;
+        
+        if (scrollY > 50) {
+          heroHeader.classList.add('visible');
+        } else {
+          heroHeader.classList.remove('visible');
+        }
+      }
+      
+      // Use throttled scroll handler
+      let scrollTimeout;
+      window.addEventListener('scroll', function() {
+        if (scrollTimeout) {
+          window.cancelAnimationFrame(scrollTimeout);
+        }
+        scrollTimeout = window.requestAnimationFrame(updateHeroHeader);
+      }, { passive: true });
+      
+      window.addEventListener('resize', updateHeroHeader);
+      updateHeroHeader();
+      
+      // Mobile hero dropdown menu logic
+      const menuBtn = document.getElementById('hero-mobile-menu-btn');
+      const menuDropdown = document.getElementById('hero-mobile-dropdown');
+      
+      // Show menu button after user interaction
+      const showMenuButton = function() {
+        if (menuBtn) {
+          menuBtn.classList.add('visible');
+        }
+        document.removeEventListener('touchstart', showMenuButton);
+        document.removeEventListener('click', showMenuButton);
+        document.removeEventListener('scroll', showMenuButton);
+      };
+      
+      document.addEventListener('touchstart', showMenuButton, { once: true, passive: true });
+      document.addEventListener('click', showMenuButton, { once: true });
+      window.addEventListener('scroll', showMenuButton, { once: true, passive: true });
+      
+      if (menuBtn && menuDropdown) {
+        menuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          menuDropdown.classList.toggle('open');
+          menuBtn.classList.toggle('open');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
+            menuDropdown.classList.remove('open');
+            menuBtn.classList.remove('open');
+          }
+        });
+      }
+    });
+    
+    // URL parameter handling for different cars
+    const urlParams = new URLSearchParams(window.location.search);
+    const carId = urlParams.get('car');
+    
+    const carData = {
+      'r34': {
+        name: 'NISSAN R34 SKYLINE',
+        description: 'Pilnīga virsbūves pārkrāsošana un atjaunošana ietvēra darbu pilnā spektrā – sākām ar rūpīgu virsbūves sagatavošanu, noņemot veco krāsu, izlīdzinot visas virsmas un novēršot visus defektus. Pēc tam tika veikta profesionāla gruntēšana un augstas kvalitātes krāsošana ar mūsdienīgākajiem materiāliem, nodrošinot vizuāli nevainojamu un ilgstoši izturīgu rezultātu visā virsbūvē.',
+        images: ['./1.jpg', './2.jpg', './3.jpg', './4.jpg'],
+        detailImages: ['./1.jpg', './2.jpg', './3.jpg']
+      },
+      'e30': {
+        name: 'BMW E30',
+        description: 'Šis projekts bija pilnīga auto restaurācija, kas nozīmēja visu transportlīdzekļa atjaunošanu no nulles. Mēs veicām dzinēja kapitālo remontu, pilnīgu virsbūves restaurāciju un krāsošanu, kā arī pilnībā atjaunojām interjeru un nomainījām visas nepieciešamās detaļas, tādējādi panākot oriģinālu izskatu apvienojumā ar uzticamu tehnisko darbību.',
+        images: ['./11.jpg', './12.jpg', './13.jpg'],
+        detailImages: ['./11.jpg', './12.jpg', './13.jpg']
+      },
+      'supra': {
+        name: 'TOYOTA SUPRA',
+        description: 'Mēs realizējām pilnīgu restaurāciju visā spektrā, sākot no dzinēja kapitālā remonta līdz pat virsbūves atjaunošanai. Restaurācijas procesā tika iekļauta visu sistēmu rūpīga pārbaude un defektācija, nepieciešamo komponentu nomaiņa un profesionāla krāsošana, kas garantēja, ka auto iegūst ne tikai oriģinālu izskatu, bet arī tehniski darbojas kā jauns.',
+        images: ['./sup3.jpg', './sup1.jpg', './sup.jpg'],
+        detailImages: ['./sup3.jpg', './sup1.jpg', './sup.jpg']
+      },
+      'skyline': {
+        name: 'NISSAN SKYLINE',
+        description: 'Šajā projektā tika veikta pilnīga virsbūves pārkrāsošana un atjaunošana, kas ietvēra detalizētu virsbūves sagatavošanu, veco krāsu noņemšanu, virsmu izlīdzināšanu un defektu korekciju. Gala rezultāts tika panākts, izmantojot profesionālu gruntēšanu un augstas kvalitātes krāsošanu ar mūsdienīgākajiem materiāliem, nodrošinot ideālu rezultātu visā virsbūvē.',
+        images: ['./z1.jpg', './z2.jpg', './z3.jpg'],
+        detailImages: ['./z1.jpg', './z2.jpg', './z3.jpg']
+      }
+    };
+    
+    if (carId && carData[carId]) {
+      const car = carData[carId];
+      document.getElementById('carName').textContent = car.name;
+      document.getElementById('carDescription').textContent = car.description;
+      document.getElementById('mainImage').src = car.images[0];
+      
+      // Update detail images
+      const detailContainers = document.querySelectorAll('.detail-image-container');
+      if (car.images.length >= 2) {
+        detailContainers[0].querySelector('img').src = car.images[1];
+        detailContainers[0].setAttribute('onclick', `changeMainImage('${car.images[1]}')`);
+      }
+      if (car.images.length >= 3) {
+        detailContainers[1].querySelector('img').src = car.images[2];
+        detailContainers[1].setAttribute('onclick', `changeMainImage('${car.images[2]}')`);
+      }
+      
+      // Update detailed description section images
+      const detailSectionImages = document.querySelectorAll('.description-image img');
+      if (car.detailImages && car.detailImages.length >= 3) {
+        detailSectionImages[0].src = car.detailImages[0];
+        detailSectionImages[0].alt = 'Virsbūves sagatavošana bodykita uzstādīšanai';
+        detailSectionImages[1].src = car.detailImages[1];
+        detailSectionImages[1].alt = 'Auto sagatavošana pilnai krāsošanai';
+        detailSectionImages[2].src = car.detailImages[2];
+        detailSectionImages[2].alt = 'Krāsošanas process un apdare';
+      }
+    }
+  </script>
+</body>
+</html>
+
