@@ -47,10 +47,9 @@ const navbar = document.querySelector('.navbar');
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
     
-    if (currentScroll <= 0) {
-        navbar.style.background = 'rgba(0, 0, 0, 0.9)';
-    } else {
-        navbar.style.background = 'rgba(0, 0, 0, 0.95)';
+    // Always keep navbar black
+    if (navbar) {
+        navbar.style.background = '#000';
     }
     
     lastScroll = currentScroll;
