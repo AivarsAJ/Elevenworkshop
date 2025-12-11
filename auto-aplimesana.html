@@ -1454,7 +1454,7 @@
     <!-- Featured Section -->
     <section class="featured" id="featured">
         <div class="featured-container">
-            <div class="featured-hero">
+            <div class="featured-hero" id="serviss-section">
                 <div class="featured-content">
                     <h2 class="section-title">Auto Serviss</h2>
                     <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8;">
@@ -1502,7 +1502,7 @@
             </div>
             
             <!-- Duplicate Section -->
-            <div class="featured-hero" style="margin-top: 80px;">
+            <div class="featured-hero" id="aplimesana-section" style="margin-top: 80px;">
                 <div class="featured-image-section">
                     <div class="featured-image-grid">
                         <div class="featured-img">
@@ -1777,16 +1777,31 @@
             const service = urlParams.get('service');
             const serviceTitle = document.querySelector('.service-main-title');
             const serviceText = document.querySelector('.service-header-text');
+            const featuredContainer = document.querySelector('.featured-container');
+            const servissSection = document.getElementById('serviss-section');
+            const aplimesanaSection = document.getElementById('aplimesana-section');
             
             if (service === 'aplimesana' && serviceTitle) {
                 serviceTitle.textContent = 'AUTO APLĪMĒŠANA';
                 if (serviceText) {
                     serviceText.textContent = 'Profesionāla auto aplīmēšana Liepājā ar daudzu gadu pieredzi un augstas kvalitātes pakalpojumiem';
                 }
+                // Reorder sections: show Auto aplimešana first
+                if (featuredContainer && servissSection && aplimesanaSection) {
+                    aplimesanaSection.style.marginTop = '0';
+                    servissSection.style.marginTop = '80px';
+                    featuredContainer.insertBefore(aplimesanaSection, servissSection);
+                }
             } else if (service === 'serviss' && serviceTitle) {
                 serviceTitle.textContent = 'AUTO SERVISS';
                 if (serviceText) {
                     serviceText.textContent = 'Profesionāls auto serviss Liepājā ar daudzu gadu pieredzi un augstas kvalitātes pakalpojumiem';
+                }
+                // Ensure Auto Serviss is first (default order)
+                if (featuredContainer && servissSection && aplimesanaSection) {
+                    servissSection.style.marginTop = '0';
+                    aplimesanaSection.style.marginTop = '80px';
+                    featuredContainer.insertBefore(servissSection, aplimesanaSection);
                 }
             }
         });
