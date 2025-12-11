@@ -152,9 +152,9 @@ body {
 }
 
 .logo-img {
-    height: 350px;
+    height: 40px;
     width: auto;
-    max-width: 1200px;
+    max-width: 200px;
     object-fit: contain;
     display: block;
     position: absolute;
@@ -162,6 +162,7 @@ body {
     left: 0;
     transform: translateY(-50%);
     z-index: 1001;
+    filter: invert(100%);
 }
 
 .nav-logo {

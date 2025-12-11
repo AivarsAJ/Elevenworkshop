@@ -1069,6 +1069,7 @@
         
         .work-details {
             padding: 25px;
+            overflow: hidden;
         }
         
         .work-title {
@@ -1093,8 +1094,9 @@
         
         .work-tags {
             display: flex;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             gap: 8px;
+            overflow: hidden;
         }
         
         .work-tag {
@@ -1105,6 +1107,8 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         
         /* Video Section - TikTok Format */
@@ -2032,11 +2036,10 @@
                 <span></span>
             </button>
             <div class="nav-menu" id="nav-menu">
-                <a href="index.html" class="nav-link">SĀKUMS</a>
-                <a href="under-construction.html" class="nav-link">PAKALPOJUMI</a>
+                <a href="index.html#youtube" class="nav-link">SĀKUMS</a>
+                <a href="index.html#services" class="nav-link">PAKALPOJUMI</a>
                 <a href="under-construction.html" class="nav-link">SADARBĪBA</a>
                 <a href="#contact" class="nav-link">KONTAKTI</a>
-                <a href="under-construction.html" class="nav-link">CENRĀDIS</a>
             </div>
         </div>
     </nav>
@@ -2113,7 +2116,6 @@
                         </div>
                         <div class="work-details">
                             <h4 class="work-title">Mitsubishi L200</h4>
-                            <p class="work-description short">Tika veikts pilns krāsošanas process. Sākumā veikta rūpīga virsbūves sagatavošana un defektu novēršana, pēc tam gruntēšana, augstas kvalitātes krāsošana, lakas uzklāšana un finālā polēšana.</p>
                             <div class="work-tags">
                                 <span class="work-tag">Sagatavošana</span>
                                 <span class="work-tag">Gruntēšana</span>
@@ -2134,7 +2136,6 @@
                         </div>
                         <div class="work-details">
                             <h4 class="work-title">BMW X5</h4>
-                            <p class="work-description short">Projekts ietvēra visus krāsošanas procesa posmus. Virsbūve tika rūpīgi sagatavota, veikta profesionāla gruntēšana, precīza krāsošana ar augstas kvalitātes materiāliem, lakas uzklāšana un detalizēta polēšana.</p>
                             <div class="work-tags">
                                 <span class="work-tag">Sagatavošana</span>
                                 <span class="work-tag">Gruntēšana</span>
@@ -2155,7 +2156,6 @@
                         </div>
                         <div class="work-details">
                             <h4 class="work-title">BMW E91</h4>
-                            <p class="work-description short">Tika veikts komplekss krāsošanas darbs. Visi procesa posmi tika izpildīti: virsbūves sagatavošana un remonts, kvalitatīva gruntēšana, precīza krāsošana, lakas uzklāšana un profesionāla polēšana.</p>
                             <div class="work-tags">
                                 <span class="work-tag">Sagatavošana</span>
                                 <span class="work-tag">Gruntēšana</span>
@@ -2168,15 +2168,14 @@
                     <div class="work-item">
                         <div class="work-image">
                             <div class="before">
-                                <img src="pirmspec4/481056266_3016211065204591_5327514669241361170_n.jpg" alt="Pirms">
+                                <img src="Pirmspec4/481056266_3016211065204591_5327514669241361170_n.jpg" alt="Pirms">
                             </div>
                             <div class="after">
-                                <img src="pirmspec4/481233472_3016211331871231_8368563671841263766_n.jpg" alt="Pēc">
+                                <img src="Pirmspec4/481233472_3016211331871231_8368563671841263766_n.jpg" alt="Pēc">
                             </div>
                         </div>
                         <div class="work-details">
                             <h4 class="work-title">Harley davidson</h4>
-                            <p class="work-description short">Tika veikts pilns krāsošanas process. Detaļas tika rūpīgi sagatavotas, veikta gruntēšana, augstas kvalitātes krāsošana, lakas uzklāšana un finālā polēšana, nodrošinot perfektu rezultātu.</p>
                             <div class="work-tags">
                                 <span class="work-tag">Sagatavošana</span>
                                 <span class="work-tag">Gruntēšana</span>
@@ -2197,7 +2196,6 @@
                         </div>
                         <div class="work-details">
                             <h4 class="work-title">Porsche 911</h4>
-                            <p class="work-description short">Tika veikts pilns krāsošanas process ar maksimālu rūpību. Visi posmi tika izpildīti: virsbūves sagatavošana, profesionāla gruntēšana, precīza krāsošana, lakas uzklāšana un detalizēta polēšana.</p>
                             <div class="work-tags">
                                 <span class="work-tag">Sagatavošana</span>
                                 <span class="work-tag">Gruntēšana</span>
@@ -2218,7 +2216,6 @@
                         </div>
                         <div class="work-details">
                             <h4 class="work-title">Golf 2</h4>
-                            <p class="work-description short">Projekts ietvēra pilnu krāsošanas procesu. Virsbūve tika rūpīgi sagatavota, veikta gruntēšana, kvalitatīva krāsošana, lakas uzklāšana un profesionāla polēšana, atjaunojot auto sākotnējo izskatu.</p>
                             <div class="work-tags">
                                 <span class="work-tag">Sagatavošana</span>
                                 <span class="work-tag">Gruntēšana</span>
@@ -2288,9 +2285,9 @@
                         <div class="step-text">
                             <h3 class="step-title">Krāsas Izvēle</h3>
                             <p class="step-description">Palīdzam izvēlēties optimālo krāsu un risinājumu</p>
+                            </div>
                         </div>
                     </div>
-                </div>
                 
                 <div class="step-item">
                     <div class="step-number">5</div>
@@ -2333,7 +2330,7 @@
                 <a href="auto-krasosana.html" class="service-card" style="text-decoration: none; color: inherit;">
                     <div class="service-icon service-icon-image">
                         <img src="virsbuve (1).png" alt="Virsbūves Pulēšana" class="service-virsbuve-image">
-                    </div>
+                </div>
                     <h3 class="service-title">VIRSBŪVES PULĒŠANA</h3>
                     <p class="service-description">Virsbūves pulēšana, kas atjauno spīdumu un novērš sīkos defektus. Mūsu pakalpojums atjauno jūsu auto sākotnējo izskatu.</p>
                 </a>
@@ -2370,7 +2367,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer id="contact" class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-section">
@@ -2429,6 +2426,27 @@
 
     <script src="script.js"></script>
     <script>
+        // Update hero title based on URL parameter
+        window.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const service = urlParams.get('service');
+            const serviceTitle = document.querySelector('.service-main-title');
+            const serviceText = document.querySelector('.service-header-text');
+            
+            if (service === 'krasosana' && serviceTitle) {
+                serviceTitle.textContent = 'AUTO KRĀSOŠANA';
+                if (serviceText) {
+                    serviceText.textContent = 'Profesionāla auto krāsošana Liepājā ar daudzu gadu pieredzi un augstas kvalitātes pakalpojumiem';
+                }
+            } else if (service === 'pulesana' && serviceTitle) {
+                serviceTitle.textContent = 'VIRSBŪVES PULĒŠANA';
+                if (serviceText) {
+                    serviceText.textContent = 'Profesionāla virsbūves pulēšana Liepājā ar daudzu gadu pieredzi un augstas kvalitātes pakalpojumiem';
+                }
+            }
+        });
+    </script>
+    <script>
         // Gallery Modal Functionality - Global scope
         let currentImages = [];
         let currentIndex = 0;
@@ -2448,8 +2466,8 @@
                 'pirmspec3/492760225_1345405280286197_2338501451877108460_n.jpg'
             ],
             'daleja-aplimesana': [
-                'pirmspec4/481056266_3016211065204591_5327514669241361170_n.jpg',
-                'pirmspec4/481233472_3016211331871231_8368563671841263766_n.jpg'
+                'Pirmspec4/481056266_3016211065204591_5327514669241361170_n.jpg',
+                'Pirmspec4/481233472_3016211331871231_8368563671841263766_n.jpg'
             ],
             'komplekss-projekts': [
                 'pirmspec5/143054406_1832747833550926_7098691629918732997_n.jpg',
